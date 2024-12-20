@@ -48,6 +48,9 @@ module.exports = {
           typescript: {},
         },
       },
+      rules: {
+        'react/prop-types': 'off',
+      }
     },
 
     // Typescript
@@ -71,14 +74,6 @@ module.exports = {
         "plugin:import/recommended",
         "plugin:import/typescript",
       ],
-    },
-
-    // Node
-    {
-      files: [".eslintrc.cjs"],
-      env: {
-        node: true,
-      },
     },
   ],
 };

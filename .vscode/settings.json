@@ -3,5 +3,8 @@
       "billans",
       "isbot",
       "pipeable"
-   ]
+   ],
+   "editor.tabSize": 4,
+   "prettier.tabWidth": 4,
+   "prettier.useTabs": false
 }
