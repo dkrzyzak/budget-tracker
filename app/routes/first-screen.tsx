@@ -10,7 +10,7 @@ export default function FirstScreen() {
 		<main className='h-screen flex flex-col'>
 			<div className='flex justify-end p-4'>
 				<Button asChild>
-					<Link to='/'>Login with Google</Link>
+					<Link to='/colors'>Login with Google</Link>
 				</Button>
 			</div>
 			<div className='flex flex-col items-center justify-center flex-1 text-center mb-[20%]'>

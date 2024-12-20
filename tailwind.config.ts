@@ -10,7 +10,6 @@ export default {
 				sans: 'var(--font-sans)',
 			},
 			colors: {
-				text: 'hsl(42, 43%, 9%)',
 				// background: 'hsl(44, 61%, 93%)',
 				// primary: 'hsl(45, 99%, 55%)',
 				// secondary: 'hsl(42, 64%, 70%)',
