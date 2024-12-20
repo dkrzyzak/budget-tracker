@@ -18,6 +18,11 @@
 
 :root {
   --font-sans: 'Albert Sans';
+  /* --color-text: 'hsl(42, 43%, 9%)';
+  --color-background: 'hsl(44, 61%, 93%)';
+  --color-primary: 'hsl(45, 99%, 55%)';
+  --color-secondary: 'hsl(42, 64%, 70%)';
+  --color-accent: 'hsl(278, 43%, 40%)'; */
 }
 
 *, *::before, *::after {

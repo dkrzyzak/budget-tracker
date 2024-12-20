@@ -18,11 +18,3 @@ export default {
 	},
 	plugins: [],
 } satisfies Config;
-
-// colors: {
-//  'text': '#211b0d',
-//  'background': '#f8f2e2',
-//  'primary': '#fec41b',
-//  'secondary': '#e4c782',
-//  'accent': '#713a92',
-// },
