@@ -1,10 +1,11 @@
 // route(*)
 
-import { LoaderFunction } from 'react-router';
+import type { Route } from '../+types/root';
+
 
 const extensionPaths = ['installHook.js.map'];
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader = async ({ params }: Route.LoaderArgs) => {
 	const { '*': resourcePath } = params;
 
 	if (extensionPaths.some((path) => resourcePath === path)) {
