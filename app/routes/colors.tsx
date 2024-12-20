@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react';
 import { Link, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
@@ -9,13 +10,13 @@ export const meta: MetaFunction = () => {
 const colors = [
 	{ name: 'Border', className: 'bg-border' },
 	
-	{ name: 'Ring', className: 'bg-ring' },
-	{ name: 'Background', className: 'bg-background' },
-	{ name: 'Foreground', className: 'bg-foreground' },
-	{ name: 'Primary', className: 'bg-primary' },
-	{ name: 'Primary foreground', className: 'bg-primary-foreground' },
-   { name: 'Secondary', className: 'bg-secondary' },
-	{ name: 'Secondary foreground', className: 'bg-secondary-foreground' },
+	{ name: 'ring', className: 'bg-ring' },
+	{ name: 'background', className: 'bg-background' },
+	{ name: 'foreground', className: 'bg-foreground' },
+	{ name: 'primary', className: 'bg-primary' },
+	{ name: 'primary foreground', className: 'bg-primary-foreground' },
+   { name: 'secondary', className: 'bg-secondary' },
+	{ name: 'secondary foreground', className: 'bg-secondary-foreground' },
    { name: 'destructive', className: 'bg-destructive' },
 	{ name: 'destructive foreground', className: 'bg-destructive-foreground' },
    { name: 'muted', className: 'bg-muted' },
@@ -26,14 +27,14 @@ const colors = [
 	{ name: 'popover foreground', className: 'bg-popover-foreground' },
    { name: 'card', className: 'bg-card' },
 	{ name: 'card foreground', className: 'bg-card-foreground' },
-   { name: 'Input', className: 'bg-input' },
+   { name: 'input', className: 'bg-input' },
 ];
 
 export default function FirstScreen() {
 	return (
 		<main className='p-8'>
          <Button asChild variant='secondary' className='mb-4'>
-            <Link to="/">Powrót</Link>
+            <Link to="/"><ChevronLeft /> Powrót</Link>
          </Button>
 			<h1 className='text-4xl'>Kolory dostępne w aplikacji</h1>
 			<div className='grid gap-4 mt-8 px-4'>
