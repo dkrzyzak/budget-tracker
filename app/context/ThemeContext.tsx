@@ -14,15 +14,15 @@ export type ThemeContextValue = {
 };
 
 export const ThemeContext = createContext<ThemeContextValue>({
-    theme: 'light',
+    theme: 'dark',
     toggleTheme: () => {},
 });
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
-    const [theme, setTheme] = useState<Theme>('light');
+    const [theme, setTheme] = useState<Theme>('dark');
 
     const toggleTheme = useCallback(() => {
-        document.body.classList.toggle('dark');
+        document.documentElement.classList.toggle('dark');
         setTheme((current) => (current === 'light' ? 'dark' : 'light'));
     }, []);
 
