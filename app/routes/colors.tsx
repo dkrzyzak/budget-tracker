@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { Link, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
+import { useTheme } from '~/context/ThemeContext';
 import { cn } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {
@@ -31,12 +32,14 @@ const colors = [
 ];
 
 export default function FirstScreen() {
+	const { toggleTheme } = useTheme();
 	return (
 		<main className='p-8'>
          <Button asChild variant='secondary' className='mb-4'>
             <Link to="/"><ChevronLeft /> Powrót</Link>
          </Button>
 			<h1 className='text-4xl'>Kolory dostępne w aplikacji</h1>
+			<Button onClick={toggleTheme}>Odwróć kolory</Button>
 			<div className='grid gap-4 mt-8 px-4'>
 				{colors.map((color) => (
 					<div key={color.name} className='flex gap-2 justify-between items-center p-2 rounded-md odd:bg-accent-foreground/20'>
