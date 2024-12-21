@@ -1,6 +1,6 @@
 import { Link, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
-import RecordsFormModal from './records-form/records-form-modal';
+import OperationsFormModal from './operations-form/operations-form-modal';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
@@ -10,7 +10,7 @@ export default function FirstScreen() {
     return (
         <main className='h-screen flex flex-col'>
             <div className='flex justify-between p-4'>
-                <RecordsFormModal />
+                <OperationsFormModal />
                 <Button asChild>
                     <Link to='/colors'>Login with Google</Link>
                 </Button>

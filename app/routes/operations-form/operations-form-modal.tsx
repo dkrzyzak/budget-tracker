@@ -8,9 +8,9 @@ import {
     DialogHeader,
     DialogTitle,
 } from '~/components/ui/dialog';
-import RecordsForm from './records-form';
+import OperationsForm from './operations-form';
 
-function RecordsFormModal() {
+function OperationsFormModal() {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -23,7 +23,7 @@ function RecordsFormModal() {
                         Na co poszło tym razem? A może to dzień wypłaty?
                     </DialogDescription>
                 </DialogHeader>
-                <RecordsForm />
+                <OperationsForm />
                 <DialogFooter>
                     <Button type='submit'>Potwierdź</Button>
                 </DialogFooter>
@@ -32,4 +32,4 @@ function RecordsFormModal() {
     );
 }
 
-export default RecordsFormModal;
+export default OperationsFormModal;

@@ -1,13 +1,13 @@
 import { CircleDollarSign, HandCoins } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import type { RecordFormData, RecordType } from '../constants';
+import type { OperationFormData, OperationType } from '../constants';
 
-function RecordTypeTabs() {
-    const { setValue } = useFormContext<RecordFormData>();
+function OperationTypeTabs() {
+    const { setValue } = useFormContext<OperationFormData>();
 
-    const setRecordType = (recordType: RecordType) => {
-        setValue('type', recordType);
+    const setOperationType = (operationType: OperationType) => {
+        setValue('type', operationType);
     };
 
     return (
@@ -16,14 +16,14 @@ function RecordTypeTabs() {
                 <TabsTrigger
                     value='expense'
                     className='flex gap-2'
-                    onClick={() => setRecordType('expense')}
+                    onClick={() => setOperationType('expense')}
                 >
                     Wydatek <CircleDollarSign />
                 </TabsTrigger>
                 <TabsTrigger
                     value='income'
                     className='flex gap-2'
-                    onClick={() => setRecordType('income')}
+                    onClick={() => setOperationType('income')}
                 >
                     Przychód <HandCoins />
                 </TabsTrigger>
@@ -32,4 +32,4 @@ function RecordTypeTabs() {
     );
 }
 
-export default RecordTypeTabs;
+export default OperationTypeTabs;

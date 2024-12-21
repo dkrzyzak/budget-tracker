@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const recordFormSchema = z.object({
+export const operationFormSchema = z.object({
     type: z.enum(['expense', 'income']),
     name: z.string(),
     amount: z.number(),
@@ -9,10 +9,10 @@ export const recordFormSchema = z.object({
     source: z.string(), // from whom received or to whom passed
 });
 
-export type RecordFormData = z.infer<typeof recordFormSchema>;
-export type RecordType = RecordFormData['type'];
+export type OperationFormData = z.infer<typeof operationFormSchema>;
+export type OperationType = OperationFormData['type'];
 
-export const initialData: RecordFormData = {
+export const initialData: OperationFormData = {
     type: 'expense',
     amount: 0,
     category: '',
