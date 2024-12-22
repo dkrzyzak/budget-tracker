@@ -10,11 +10,11 @@ function OperationSource() {
     const operationType = watch('type');
 
     return (
-        <div className='grid grid-cols-4 items-center gap-4'>
+        <div className='flex items-center gap-4'>
             <Label htmlFor='sourceId' className='text-right'>
-                {operationType === 'expense' ? 'Do' : 'Od'}
+                {operationType === 'expense' ? 'Odbiorca' : 'Od'}
             </Label>
-            <Input id='sourceId' className='col-span-3' {...register('sourceId')} />
+            <Input id='sourceId' className='flex-1' {...register('sourceId')} />
         </div>
     );
 }

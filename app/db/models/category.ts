@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { Dto } from './type-utils';
 
 export const categorySchema = z.object({
     name: z.string().min(2),
@@ -7,3 +8,5 @@ export const categorySchema = z.object({
 });
 
 export type Category = z.infer<typeof categorySchema>;
+
+export type CategoryDto = Dto<Category>;

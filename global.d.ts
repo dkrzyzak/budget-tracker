@@ -6,3 +6,8 @@ namespace NodeJS {
         POSTGRES_URL?: string;
     }
 }
+
+type ActionResult = {
+    success: boolean;
+    message?: string;
+};

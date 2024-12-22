@@ -5,8 +5,8 @@ export const operationSchema = z.object({
     name: z.string().optional(),
     amount: z.number(),
     operationDate: z.date(),
-    sourceId: z.number(), // from whom received or to whom passed
-    categoryId: z.number(), // it will be taken from API
+    sourceId: z.string(), // from whom received or to whom passed
+    categoryId: z.string(), // it will be taken from API
 });
 
 export type Operation = z.infer<typeof operationSchema>;
