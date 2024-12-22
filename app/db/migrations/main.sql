@@ -1,11 +1,14 @@
 CREATE TABLE IF NOT EXISTS "sources" (
     "id" serial PRIMARY KEY NOT NULL,
     "name" text NOT NULL,
+    "image" text
 );
 
 CREATE TABLE IF NOT EXISTS "categories" (
     "id" serial PRIMARY KEY NOT NULL,
     "name" text NOT NULL,
+    "color" text,
+    "icon" text
 );
 
 CREATE TABLE IF NOT EXISTS "operations" (
@@ -14,11 +17,11 @@ CREATE TABLE IF NOT EXISTS "operations" (
     "name" text,
     "amount" decimal(15,2) NOT NULL,
     "operationDate" date NOT NULL,
-    "sourceId" integer REFERENCES "sources"("id"),
-    "categoryId" integer REFERENCES "categories"("id"),
+    "sourceId" integer REFERENCES "sources"("id"), --TODO: add NOT NULL
+    "categoryId" integer REFERENCES "categories"("id") --TODO: add NOT NULL
 );
 
 -- Add indices for foreign keys to improve query performance
-CREATE INDEX IF NOT EXISTS "operations_source_id_index" ON "operations" ("source_id");
-CREATE INDEX IF NOT EXISTS "operations_category_id_index" ON "operations" ("category_id");
+CREATE INDEX IF NOT EXISTS "operations_source_id_index" ON "operations" ("sourceId");
+CREATE INDEX IF NOT EXISTS "operations_category_id_index" ON "operations" ("categoryId");
 CREATE INDEX IF NOT EXISTS "operations_date_idx" ON "operations" ("operationDate");

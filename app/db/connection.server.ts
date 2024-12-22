@@ -1,8 +1,12 @@
-import pg from 'pg';
-const { Pool } = pg;
+import knex from 'knex';
 
-export const db = new Pool({
-    max: 5,
-    connectionString: process.env.POSTGRES_URL,
-    connectionTimeoutMillis: 2000,
+export const db = knex({
+    client: 'pg',
+    connection: {
+        connectionString: process.env.POSTGRES_URL,
+    },
+    pool: {
+        min: 1,
+        max: 5,
+    },
 });

@@ -1,25 +1,31 @@
-import type { ActionFunction } from 'react-router';
+import type { ActionFunction, ShouldRevalidateFunctionArgs } from 'react-router';
 import { addCategory } from '~/db/services/categories';
+import { createResponse } from '~/lib/utils';
+import { promised } from '~/lib/utils/promised';
 
 export const action: ActionFunction = async ({ request }) => {
     const formData = await request.formData();
     const name = formData.get('categoryName') as string | null;
 
-    console.log('got action called with ', formData);
-
     if (!name) {
-        throw new Response('Missing categoryName parameter in form data', {
-            status: 400,
+        throw createResponse(400, {
+            success: false,
+            message: 'Missing "categoryName" parameter in form data',
+        });
+    }
+    const [_, error] = await promised(addCategory, name);
+
+    if (error) {
+        throw createResponse(500, {
+            success: false,
+            message: `Wystąpił problem podczas dodawania nowej kategorii. Komunikat błędu: ${error.message}`,
         });
     }
 
-    try {
-        await addCategory(name);
-
-        return new Response(null, { status: 201 });
-    } catch (e) {
-        console.log(e);
-
-        throw new Response('Error while adding to the database', { status: 500 });
-    }
+    return createResponse(201, { success: true });
 };
+
+export function shouldRevalidate(arg: ShouldRevalidateFunctionArgs) {
+    console.log('in action route', arg);
+    return true;
+}

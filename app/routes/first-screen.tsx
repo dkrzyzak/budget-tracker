@@ -1,4 +1,9 @@
-import { Link, type LoaderFunction, type MetaFunction } from 'react-router';
+import {
+    Link,
+    type LoaderFunction,
+    type MetaFunction,
+    type ShouldRevalidateFunction,
+} from 'react-router';
 import { Button } from '~/components/ui/button';
 import OperationsFormModal from './operations-form/operations-form-modal';
 import { getCategories } from '~/db/services/categories';
@@ -7,7 +12,13 @@ export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
 };
 
+export const shouldRevalidate: ShouldRevalidateFunction = (data) => {
+    console.log('in main route', data);
+    return true;
+};
+
 export const loader: LoaderFunction = async () => {
+    console.log('revalidation of main loader');
     const categories = await getCategories();
 
     return {

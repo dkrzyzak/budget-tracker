@@ -1,2 +1,2 @@
-export { addCategory } from './addCategory';
-export { getCategories } from './getCategory';
+export * from './addCategory';
+export * from './getCategory';

@@ -1,3 +1,4 @@
+import { db } from '~/db/connection.server';
 import type { CategoryDto } from '~/db/models';
 
 const categories: CategoryDto[] = [
@@ -35,4 +36,11 @@ const categories: CategoryDto[] = [
 
 export async function getCategories() {
     return categories;
+}
+
+export async function getCategoriesReal() {
+    const data = await db.select('*').from<CategoryDto>('categories');
+    console.log(data);
+
+    return data;
 }

@@ -14,7 +14,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { type Operation, type CategoryDto } from '~/db/models';
 import { Plus } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
-import { useFetcher, useLoaderData } from 'react-router';
+import { useLoaderData, useRevalidator } from 'react-router';
+import { promisedAction } from '~/lib/utils';
 
 export function OperationCategory() {
     const { categories } = useLoaderData() as { categories: CategoryDto[] };
@@ -79,13 +80,25 @@ function CategoriesList({ setOpen }: CategoriesListProps) {
     const { categories } = useLoaderData() as { categories: CategoryDto[] };
     const [categoryName, setCategoryName] = useState('');
     const { setValue } = useFormContext<Operation>();
-    const fetcher = useFetcher();
+    const { revalidate } = useRevalidator();
 
-    const onAddCategory = () => {
+    const onAddCategory = async () => {
         // add new category to database (display loader on the button) while adding category
         const formData = new FormData();
         formData.append('categoryName', categoryName);
-        fetcher.submit(formData, { method: 'POST', action: '/api/categories/create' });
+
+        const { success, message } = await promisedAction('/api/categories/create', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (success) {
+            await revalidate();
+        } else {
+            console.log("Błąd", message);
+        }
+
+        
 
         // set as a value in the form, after updating the db and receiving updated categories list
         // maybe add an optimistic update for categories? depending on how long will it take to update db

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - pg_budget:/var/lib/postgresql/data
+    ports: 
+      - 5959:5432
+    environment:
+      - POSTGRES_DB=budget_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  pg_budget:

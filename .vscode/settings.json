@@ -3,7 +3,8 @@
       "billans",
       "cmdk",
       "isbot",
-      "pipeable"
+      "pipeable",
+      "revalidator"
    ],
    "editor.tabSize": 4,
    "prettier.tabWidth": 4,

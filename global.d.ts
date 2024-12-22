@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-namespace NodeJS {
-    interface ProcessEnv {
-        // DATABASE
-        POSTGRES_URL?: string;
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            // DATABASE
+            POSTGRES_URL?: string;
+        }
     }
+
+    type ActionResult<AdditionalData = {}> = {
+        success: boolean;
+        message?: string;
+    } & AdditionalData;
 }
 
-type ActionResult = {
-    success: boolean;
-    message?: string;
-};
+export {};
