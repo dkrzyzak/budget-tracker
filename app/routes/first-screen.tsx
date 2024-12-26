@@ -3,6 +3,7 @@ import { Button } from '~/components/ui/button';
 import OperationsFormModal from './operations-form/operations-form-modal';
 import { getCategoriesByUsage } from '~/db/services/categories';
 import { promised } from '~/lib/utils';
+import { getSourcesByFrequency } from '~/db/services/sources/getSource';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
@@ -10,13 +11,19 @@ export const meta: MetaFunction = () => {
 
 export const loader = async () => {
     const [categories, categoriesError] = await promised(getCategoriesByUsage);
+    const [sources, sourcesError] = await promised(getSourcesByFrequency);
 
     if (categoriesError) {
-        console.log("Error occurred: ", categoriesError);
+        console.log("Couldn't load categories: ", categoriesError);
+    }
+
+    if (sourcesError) {
+        console.log("Couldn't load sources: ", sourcesError);
     }
 
     return {
         categories: categoriesError ? [] : categories,
+        sources: sourcesError ? [] : sources,
     };
 };
 

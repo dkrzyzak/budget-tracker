@@ -5,7 +5,8 @@
       "isbot",
       "pipeable",
       "revalidator",
-      "sonner"
+      "sonner",
+      "vaul"
    ],
    "editor.tabSize": 4,
    "prettier.tabWidth": 4,

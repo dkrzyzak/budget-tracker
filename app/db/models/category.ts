@@ -11,4 +11,4 @@ export type Category = z.infer<typeof categorySchema>;
 
 // QUERY MODELS
 export type CategoryDto = Dto<Category>;
-export type CategoryWithUsage = Pretty<CategoryDto & { operationsCount: number }>;
+export type CategoryWithFrequency = Pretty<CategoryDto & { frequency: number }>;

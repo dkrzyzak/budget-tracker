@@ -1,5 +1,6 @@
 import type { Operation } from '~/db/models';
 
+export const NEW_OPTION_ID = -2;
 
 export const initialData: Operation = {
     type: 'expense',

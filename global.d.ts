@@ -10,7 +10,7 @@ declare global {
 
     type Pretty<T> = {
         [K in keyof T]: T[K];
-    };
+    } & {};
 
     type ActionResult<AdditionalData = {}> = {
         success: boolean;
