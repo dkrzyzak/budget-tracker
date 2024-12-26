@@ -4,11 +4,11 @@ import { Button } from '~/components/ui/button';
 import { Drawer, DrawerContent, DrawerTrigger } from '~/components/ui/drawer';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
 import { type Operation } from '~/db/models';
+import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import type { LoaderData } from '~/routes/first-screen';
 import { OptionsList } from './options-list';
-import { NEW_OPTION_ID } from '../constants';
 
 export function OperationSource() {
     const { sources: loadedSources } = useLoaderData<LoaderData>();

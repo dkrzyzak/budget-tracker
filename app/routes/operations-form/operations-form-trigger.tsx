@@ -4,13 +4,12 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from '~/components/ui/dialog';
 import OperationsForm from './operations-form';
 
-function OperationsFormModal() {
+function OperationsFormTrigger() {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -24,12 +23,9 @@ function OperationsFormModal() {
                     </DialogDescription>
                 </DialogHeader>
                 <OperationsForm />
-                <DialogFooter>
-                    <Button type='submit'>Potwierdź</Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
 }
 
-export default OperationsFormModal;
+export default OperationsFormTrigger;

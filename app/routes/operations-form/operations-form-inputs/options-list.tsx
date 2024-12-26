@@ -11,7 +11,7 @@ import {
     CommandList,
 } from '~/components/ui/command';
 import type { Operation } from '~/db/models';
-import { NEW_OPTION_ID } from '../constants';
+import { NEW_OPTION_ID } from '~/lib/globals';
 
 // every option must have those properties
 interface OptionBase {

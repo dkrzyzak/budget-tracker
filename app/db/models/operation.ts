@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Dto } from './type-utils';
+import { UNSELECTED_ID } from '~/lib/globals';
 
 export const operationSchema = z.object({
     type: z.enum(['expense', 'income']),
@@ -12,7 +13,7 @@ export const operationSchema = z.object({
         const parsed = Number(val.replace(',', '.'));
 
         // Return undefined if parsing failed
-        if (isNaN(parsed)) {
+        if (Number.isNaN(parsed)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Wprowadź wartość liczbową',
@@ -23,8 +24,12 @@ export const operationSchema = z.object({
         return parsed;
     }),
     operationDate: z.date(),
-    sourceId: z.number(), // from whom received or to whom passed
-    categoryId: z.number(), // it will be taken from API
+    sourceId: z.number().refine((categoryId) => categoryId !== UNSELECTED_ID, {
+        message: 'Wybierz źródło',
+    }),
+    categoryId: z.number().refine((categoryId) => categoryId !== UNSELECTED_ID, {
+        message: 'Wybierz kategorię',
+    }),
 });
 
 export type Operation = z.infer<typeof operationSchema>;

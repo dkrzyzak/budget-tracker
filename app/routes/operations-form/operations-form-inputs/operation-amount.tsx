@@ -15,7 +15,7 @@ export function OperationAmount() {
                 id='amount'
                 className='flex-1'
                 inputMode='decimal'
-                
+                autoComplete='off'
                 {...register('amount')}
             />
         </div>

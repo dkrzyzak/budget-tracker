@@ -28,12 +28,16 @@ module.exports = {
         // React
         {
             files: ['**/*.{ts,tsx}'],
-            plugins: ['react', 'jsx-a11y'],
+            plugins: ['react', 'jsx-a11y', '@typescript-eslint', 'import'],
+            parser: '@typescript-eslint/parser',
             extends: [
                 'plugin:react/recommended',
                 'plugin:react/jsx-runtime',
                 'plugin:react-hooks/recommended',
                 'plugin:jsx-a11y/recommended',
+                'plugin:@typescript-eslint/recommended',
+                'plugin:import/recommended',
+                'plugin:import/typescript',
             ],
             settings: {
                 react: {
@@ -44,21 +48,6 @@ module.exports = {
                     { name: 'Link', linkAttribute: 'to' },
                     { name: 'NavLink', linkAttribute: 'to' },
                 ],
-                'import/resolver': {
-                    typescript: {},
-                },
-            },
-            rules: {
-                'react/prop-types': 'off',
-            },
-        },
-
-        // Typescript
-        {
-            files: ['**/*.{ts,tsx}'],
-            plugins: ['@typescript-eslint', 'import'],
-            parser: '@typescript-eslint/parser',
-            settings: {
                 'import/internal-regex': '^~/',
                 'import/resolver': {
                     node: {
@@ -69,12 +58,11 @@ module.exports = {
                     },
                 },
             },
-            extends: [
-                'plugin:@typescript-eslint/recommended',
-                'plugin:import/recommended',
-                'plugin:import/typescript',
-            ],
             rules: {
+                'react/prop-types': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
+                '@typescript-eslint/no-empty-object-type': 'off',
+
                 '@typescript-eslint/no-unused-vars': [
                     'warn',
                     {
@@ -91,8 +79,6 @@ module.exports = {
                 //             'Direct use of the Response class is forbidden. Use the createResponse function instead.',
                 //     },
                 // ],
-                '@typescript-eslint/no-explicit-any': 'off',
-                '@typescript-eslint/no-empty-object-type': 'off',
             },
         },
     ],

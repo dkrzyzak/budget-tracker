@@ -1,12 +1,11 @@
 import type { Operation } from '~/db/models';
-
-export const NEW_OPTION_ID = -2;
+import { UNSELECTED_ID } from '~/lib/globals';
 
 export const initialData: Operation = {
     type: 'expense',
     amount: undefined as unknown as number,
-    categoryId: -1,
+    categoryId: UNSELECTED_ID,
     operationDate: new Date(),
     name: '',
-    sourceId: -1,
+    sourceId: UNSELECTED_ID,
 };

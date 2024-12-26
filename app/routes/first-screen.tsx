@@ -1,6 +1,6 @@
 import { Link, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
-import OperationsFormModal from './operations-form/operations-form-modal';
+import OperationsFormTrigger from './operations-form/operations-form-trigger';
 import { getCategoriesByUsage } from '~/db/services/categories';
 import { promised } from '~/lib/utils';
 import { getSourcesByFrequency } from '~/db/services/sources/getSource';
@@ -29,15 +29,16 @@ export const loader = async () => {
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;
 
-// export const action: ActionFunction = async (args) => {
-//     return await createCategory(args);
+// export const action: ActionFunction = async ({ request }) => {
+
+//     return { success: true };
 // }
 
 export default function FirstScreen() {
     return (
         <main className='h-screen flex flex-col'>
             <div className='flex justify-between p-4'>
-                <OperationsFormModal />
+                <OperationsFormTrigger />
                 <Button asChild>
                     <Link to='/colors'>Login with Google</Link>
                 </Button>

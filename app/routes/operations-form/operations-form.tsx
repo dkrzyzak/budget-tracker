@@ -7,6 +7,8 @@ import { OperationAmount } from './operations-form-inputs/operation-amount';
 import { OperationSource } from './operations-form-inputs/operation-source';
 import { OperationCategory } from './operations-form-inputs/operation-category';
 import { operationSchema } from '~/db/models';
+import { Button } from '~/components/ui/button';
+import { Form } from 'react-router';
 
 function OperationsForm() {
     const form = useForm({
@@ -16,13 +18,27 @@ function OperationsForm() {
 
     return (
         <FormProvider {...form}>
-            <div className='grid gap-4 py-2'>
-                <OperationTypeTabs />
-                <OperationAmount />
-                <OperationName />
-                <OperationCategory />
-                <OperationSource />
-            </div>
+            <Form
+                onSubmit={form.handleSubmit(
+                    (data) => {
+                        console.log('form was valid', data);
+                    },
+                    (errors) => {
+                        console.log('form was not valid:', errors);
+                    }
+                )}
+            >
+                <div className='grid gap-4 py-2'>
+                    <OperationTypeTabs />
+                    <OperationAmount />
+                    <OperationName />
+                    <OperationCategory />
+                    <OperationSource />
+                    <Button className='w-auto' type='submit'>
+                        Potwierdź
+                    </Button>
+                </div>
+            </Form>
         </FormProvider>
     );
 }
