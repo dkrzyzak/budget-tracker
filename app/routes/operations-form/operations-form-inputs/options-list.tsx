@@ -82,7 +82,7 @@ export function OptionsList<Option extends OptionBase>({
                             value={String(option.id)}
                             onSelect={onSelectOption}
                         >
-                            {option.name} ({option.frequency})
+                            {option.name}
                         </CommandItem>
                     ))}
                 </CommandGroup>

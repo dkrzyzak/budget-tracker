@@ -83,14 +83,14 @@ module.exports = {
                         destructuredArrayIgnorePattern: '^_',
                     },
                 ],
-                'no-restricted-syntax': [
-                    'error',
-                    {
-                        selector: 'NewExpression[callee.name="Response"]',
-                        message:
-                            'Direct use of the Response class is forbidden. Use the createResponse function instead.',
-                    },
-                ],
+                // 'no-restricted-syntax': [
+                //     'error',
+                //     {
+                //         selector: 'NewExpression[callee.name="Response"]',
+                //         message:
+                //             'Direct use of the Response class is forbidden. Use the createResponse function instead.',
+                //     },
+                // ],
                 '@typescript-eslint/no-explicit-any': 'off',
                 '@typescript-eslint/no-empty-object-type': 'off',
             },

@@ -42,12 +42,12 @@ export function OperationSource() {
     if (isDesktop) {
         return (
             <div className='flex items-center gap-4'>
-                <p className='text-sm'>
+                <label className='text-sm' htmlFor='source'>
                     {operationType === 'expense' ? 'Odbiorca' : 'Źródło'}
-                </p>
+                </label>
                 <Popover open={isModalOpened} onOpenChange={setModalOpened}>
                     <PopoverTrigger asChild>
-                        <Button variant='outline' className='flex-1'>
+                        <Button variant='outline' id="source" className='flex-1'>
                             {selectedSource ? (
                                 <>{selectedSource.name}</>
                             ) : (

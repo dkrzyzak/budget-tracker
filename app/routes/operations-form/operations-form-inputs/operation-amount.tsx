@@ -3,14 +3,21 @@ import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import type { Operation } from '~/db/models';
 
-export function OperationName() {
+export function OperationAmount() {
     const { register } = useFormContext<Operation>();
+
     return (
         <div className='flex items-center gap-4'>
-            <Label htmlFor='name' className='text-right'>
-                Nazwa
+            <Label htmlFor='amount' className='text-right'>
+                Kwota
             </Label>
-            <Input id='name' className='flex-1' {...register('name')} />
+            <Input
+                id='amount'
+                className='flex-1'
+                inputMode='decimal'
+                
+                {...register('amount')}
+            />
         </div>
     );
 }

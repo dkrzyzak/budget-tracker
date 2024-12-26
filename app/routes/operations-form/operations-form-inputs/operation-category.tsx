@@ -45,10 +45,10 @@ export function OperationCategory() {
     if (isDesktop) {
         return (
             <div className='flex items-center gap-4'>
-                <p className='text-sm'>Kategoria</p>
+                <label className='text-sm' htmlFor='category'>Kategoria</label>
                 <Popover open={isModalOpened} onOpenChange={setModalOpened}>
                     <PopoverTrigger asChild>
-                        <Button variant='outline' className='flex-1'>
+                        <Button variant='outline' id="category" className='flex-1'>
                             {selectedCategory ? (
                                 <>{selectedCategory.name}</>
                             ) : (
