@@ -1,30 +1,33 @@
-import {
-    Link,
-    type LoaderFunction,
-    type MetaFunction,
-    type ShouldRevalidateFunction,
-} from 'react-router';
+import { Link, type ActionFunction, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
 import OperationsFormModal from './operations-form/operations-form-modal';
-import { getCategories } from '~/db/services/categories';
+import { getCategoriesByUsage } from '~/db/services/categories';
+import {createCategory} from '~/actions/categories/create';
+import { promised } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
 };
 
-export const shouldRevalidate: ShouldRevalidateFunction = (data) => {
-    console.log('in main route', data);
-    return true;
-};
+export const loader = async () => {
+    console.log('revalidation of main loader', Date.now());
+    const [categories, categoriesError] = await promised(getCategoriesByUsage);
 
-export const loader: LoaderFunction = async () => {
-    console.log('revalidation of main loader');
-    const categories = await getCategories();
+
+    if (categoriesError) {
+        console.log("Error occurred: ", categoriesError);
+    }
 
     return {
-        categories,
+        categories: categoriesError ? [] : categories,
     };
 };
+
+export type LoaderData = Awaited<ReturnType<typeof loader>>;
+
+export const action: ActionFunction = async (args) => {
+    return await createCategory(args);
+}
 
 export default function FirstScreen() {
     return (

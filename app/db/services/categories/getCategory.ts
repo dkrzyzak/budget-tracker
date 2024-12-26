@@ -1,46 +1,21 @@
+import type { QueryResult } from 'pg';
 import { db } from '~/db/connection.server';
-import type { CategoryDto } from '~/db/models';
-
-const categories: CategoryDto[] = [
-    {
-        id: '1',
-        name: 'Jedzenie',
-        color: 'red',
-        icon: '',
-    },
-    {
-        id: '2',
-        name: 'Zakupy online',
-        color: 'green',
-        icon: '',
-    },
-    {
-        id: '3',
-        name: 'Zdrowie',
-        color: 'blue',
-        icon: '',
-    },
-    {
-        id: '4',
-        name: 'Pierdoły',
-        color: 'violet',
-        icon: '',
-    },
-    {
-        id: '5',
-        name: 'Elektronika',
-        color: 'pink',
-        icon: '',
-    },
-];
+import type { CategoryDto, CategoryWithUsage } from '~/db/models';
 
 export async function getCategories() {
-    return categories;
-}
-
-export async function getCategoriesReal() {
     const data = await db.select('*').from<CategoryDto>('categories');
-    console.log(data);
 
     return data;
+}
+
+export async function getCategoriesByUsage() {
+    const data = await db.raw<QueryResult<CategoryWithUsage>>(`
+        SELECT c.id, c.name, c.color, c.icon, COUNT(o.id)::INTEGER as "operationsCount"
+        FROM "categories" c
+        LEFT JOIN "operations" o ON c.id = o."categoryId"
+        GROUP BY c.id, c.name, c.color, c.icon
+        ORDER BY "operationsCount" DESC;
+    `);
+
+    return data.rows;
 }

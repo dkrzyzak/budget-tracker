@@ -4,7 +4,8 @@
       "cmdk",
       "isbot",
       "pipeable",
-      "revalidator"
+      "revalidator",
+      "sonner"
    ],
    "editor.tabSize": 4,
    "prettier.tabWidth": 4,

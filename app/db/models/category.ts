@@ -9,4 +9,6 @@ export const categorySchema = z.object({
 
 export type Category = z.infer<typeof categorySchema>;
 
+// QUERY MODELS
 export type CategoryDto = Dto<Category>;
+export type CategoryWithUsage = CategoryDto & { operationsCount: string };

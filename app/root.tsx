@@ -6,6 +6,7 @@ import {
     Scripts,
     // ScrollRestoration,
 } from 'react-router';
+import { Toaster } from '~/components/ui/sonner';
 import type { Route } from './+types/root';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -37,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <body>
                 <ThemeProvider>{children}</ThemeProvider>
                 {/* <ScrollRestoration /> */}
+                <Toaster />
                 <Scripts />
             </body>
         </html>

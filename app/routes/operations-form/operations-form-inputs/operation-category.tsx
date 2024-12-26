@@ -14,8 +14,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { type Operation, type CategoryDto } from '~/db/models';
 import { Plus } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
-import { useLoaderData, useRevalidator } from 'react-router';
-import { promisedAction } from '~/lib/utils';
+import { useLoaderData } from 'react-router';
+import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
+import { toast } from 'sonner';
+import type { CreateCategoryData } from '~/db/services/categories';
 
 export function OperationCategory() {
     const { categories } = useLoaderData() as { categories: CategoryDto[] };
@@ -77,45 +79,39 @@ interface CategoriesListProps {
 }
 
 function CategoriesList({ setOpen }: CategoriesListProps) {
-    const { categories } = useLoaderData() as { categories: CategoryDto[] };
+    const { categories } = useLoaderData<{ categories: CategoryDto[] }>();
     const [categoryName, setCategoryName] = useState('');
     const { setValue } = useFormContext<Operation>();
-    const { revalidate } = useRevalidator();
+    const { submit } = useAwaitedFetcher<CreateCategoryData>();
+
+    const filteredCategories = categories.filter((category) =>
+        category.name.toLowerCase().includes(categoryName.toLowerCase().trim())
+    );
 
     const onAddCategory = async () => {
-        // add new category to database (display loader on the button) while adding category
         const formData = new FormData();
         formData.append('categoryName', categoryName);
 
-        const { success, message } = await promisedAction('/api/categories/create', {
-            method: 'POST',
-            body: formData,
-        });
+        const { success, message, id } = await submit(formData, { method: 'POST' });
 
-        if (success) {
-            await revalidate();
-        } else {
-            console.log("Błąd", message);
+        if (!success) {
+            toast.error(message);
         }
 
-        
-
         // set as a value in the form, after updating the db and receiving updated categories list
-        // maybe add an optimistic update for categories? depending on how long will it take to update db
+        setValue('categoryId', id ?? -1);
 
         // close combobox
         setOpen(false);
     };
 
     const onSelectCategory = (value: string) => {
-        console.log(value);
-
-        setValue('categoryId', value);
+        setValue('categoryId', Number(value));
         setOpen(false);
     };
 
     return (
-        <Command>
+        <Command shouldFilter={false}>
             <CommandInput
                 value={categoryName}
                 onValueChange={setCategoryName}
@@ -136,10 +132,10 @@ function CategoriesList({ setOpen }: CategoriesListProps) {
                     </div>
                 </CommandEmpty>
                 <CommandGroup>
-                    {categories.map((category) => (
+                    {filteredCategories.map((category) => (
                         <CommandItem
                             key={category.id}
-                            value={category.id}
+                            value={String(category.id)}
                             onSelect={onSelectCategory}
                         >
                             {category.name}

@@ -1,3 +1,5 @@
+import type { ActionFunctionArgs } from 'react-router';
+
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
@@ -10,6 +12,13 @@ declare global {
         success: boolean;
         message?: string;
     } & AdditionalData;
+
+    interface ActionFunction<AdditionalData = {}> {
+        (
+            args: ActionFunctionArgs,
+            handlerCtx?: unknown
+        ): Promise<ActionResult<AdditionalData>>;
+    }
 }
 
 export {};

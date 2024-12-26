@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS "sources" (
 
 CREATE TABLE IF NOT EXISTS "categories" (
     "id" serial PRIMARY KEY NOT NULL,
-    "name" text NOT NULL,
+    "name" text UNIQUE NOT NULL,
     "color" text,
     "icon" text
 );

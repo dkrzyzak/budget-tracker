@@ -5,9 +5,6 @@ export default [
     index('./routes/first-screen.tsx'),
     route('/colors', './routes/colors.tsx'),
 
-	// API
-    route('/api/categories/create', './routes/api/categories/create.ts'),
-
 	// CATCH ALL
     route('*', './routes/catch-all.ts'),
 ] satisfies RouteConfig;
