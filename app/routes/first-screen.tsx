@@ -1,8 +1,7 @@
-import { Link, type ActionFunction, type MetaFunction } from 'react-router';
+import { Link, type MetaFunction } from 'react-router';
 import { Button } from '~/components/ui/button';
 import OperationsFormModal from './operations-form/operations-form-modal';
 import { getCategoriesByUsage } from '~/db/services/categories';
-import {createCategory} from '~/actions/categories/create';
 import { promised } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {
@@ -10,9 +9,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-    console.log('revalidation of main loader', Date.now());
     const [categories, categoriesError] = await promised(getCategoriesByUsage);
-
 
     if (categoriesError) {
         console.log("Error occurred: ", categoriesError);
@@ -25,9 +22,9 @@ export const loader = async () => {
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;
 
-export const action: ActionFunction = async (args) => {
-    return await createCategory(args);
-}
+// export const action: ActionFunction = async (args) => {
+//     return await createCategory(args);
+// }
 
 export default function FirstScreen() {
     return (
