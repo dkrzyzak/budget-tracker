@@ -8,6 +8,7 @@ import { OperationSource } from './operations-form-inputs/operation-source';
 import { OperationCategory } from './operations-form-inputs/operation-category';
 import { operationSchema } from '~/db/models';
 import { Button } from '~/components/ui/button';
+import { DatePicker } from '~/components/form/date-picker';
 import { Form } from 'react-router';
 
 function OperationsForm() {
@@ -32,6 +33,7 @@ function OperationsForm() {
                     <OperationTypeTabs />
                     <OperationAmount />
                     <OperationName />
+                    <DatePicker />
                     <OperationCategory />
                     <OperationSource />
                     <Button className='w-auto' type='submit'>

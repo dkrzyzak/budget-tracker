@@ -7,7 +7,13 @@ export const operationSchema = z.object({
     name: z.string().optional(),
     amount: z.string().transform((val, ctx) => {
         // Handle empty string case
-        if (val === '') return 0;
+        if (val === '') {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: 'Podaj kwotę',
+            });
+            return 0;
+        }
 
         // Parse string to number
         const parsed = Number(val.replace(',', '.'));
@@ -18,7 +24,7 @@ export const operationSchema = z.object({
                 code: z.ZodIssueCode.custom,
                 message: 'Wprowadź wartość liczbową',
             });
-            return z.NEVER;
+            return 0;
         }
 
         return parsed;

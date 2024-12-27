@@ -1,7 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useMediaQuery } from '~/hooks/use-media-query';
 import { Button } from '~/components/ui/button';
-import { Drawer, DrawerContent, DrawerTrigger } from '~/components/ui/drawer';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerTitle,
+    DrawerTrigger,
+} from '~/components/ui/drawer';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
 import { type Operation } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
@@ -47,7 +53,7 @@ export function OperationSource() {
                 </label>
                 <Popover open={isModalOpened} onOpenChange={setModalOpened}>
                     <PopoverTrigger asChild>
-                        <Button variant='outline' id="source" className='flex-1'>
+                        <Button variant='outline' id='source' className='flex-1'>
                             {selectedSource ? (
                                 <>{selectedSource.name}</>
                             ) : (
@@ -79,12 +85,12 @@ export function OperationSource() {
 
     return (
         <div className='flex items-center gap-4'>
-            <p className='text-sm'>
+            <label className='text-sm' htmlFor='source'>
                 {operationType === 'expense' ? 'Odbiorca' : 'Źródło'}
-            </p>
+            </label>
             <Drawer open={isModalOpened} onOpenChange={setModalOpened}>
                 <DrawerTrigger asChild>
-                    <Button variant='outline' className='flex-1'>
+                    <Button variant='outline' className='flex-1' id="source">
                         {selectedSource ? (
                             <>{selectedSource.name}</>
                         ) : (
@@ -97,6 +103,9 @@ export function OperationSource() {
                     </Button>
                 </DrawerTrigger>
                 <DrawerContent>
+                    <DrawerTitle className='sr-only' />
+                    <DrawerDescription className='sr-only' />
+
                     <div className='mt-4 border-t'>
                         <OptionsList
                             options={sources}

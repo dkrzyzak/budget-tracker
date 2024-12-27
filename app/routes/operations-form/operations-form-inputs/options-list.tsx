@@ -66,7 +66,7 @@ export function OptionsList<Option extends OptionBase>({
                     <div className='grid gap-2 px-4'>
                         <p>{commandEmptyCTA}</p>
                         <Button
-                            disabled={false}
+                            disabled={!optionName}
                             variant='outline'
                             className='gap-1'
                             onClick={onAddOption}
