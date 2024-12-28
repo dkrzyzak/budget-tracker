@@ -16,7 +16,6 @@ interface ComboSelectProps {
     onSelectOption: (optionId: number) => void;
     addNewOption: (optionName: string) => void;
     fieldId?: string;
-    fieldLabel?: string;
     targetLabel?: string;
     emptyListLabel?: string;
 }
@@ -24,7 +23,6 @@ interface ComboSelectProps {
 export function ComboSelect({
     options,
     fieldId,
-    fieldLabel,
     targetLabel,
     emptyListLabel,
     addNewOption,
@@ -33,54 +31,49 @@ export function ComboSelect({
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [isModalOpened, setModalOpened] = useState(false);
 
-    return (
-        <div className='flex items-center gap-4'>
-            {fieldLabel && (
-                <label className='text-sm' htmlFor={fieldId}>
-                    {fieldLabel}
-                </label>
-            )}
-            {isDesktop ? (
-                <Popover open={isModalOpened} onOpenChange={setModalOpened}>
-                    <PopoverTrigger asChild>
-                        <Button variant='outline' id={fieldId} className='flex-1'>
-                            {targetLabel}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-[200px] p-0' align='start'>
-                        <OptionsList
-                            options={options}
-                            emptyListLabel={emptyListLabel}
-                            setOpen={setModalOpened}
-                            addNewOption={addNewOption}
-                            onSelectOption={onSelectOption}
-                        />
-                    </PopoverContent>
-                </Popover>
-            ) : (
-                <Drawer open={isModalOpened} onOpenChange={setModalOpened}>
-                    <DrawerTrigger asChild>
-                        <Button variant='outline' id='category' className='flex-1'>
-                            {targetLabel}
-                        </Button>
-                    </DrawerTrigger>
-                    <DrawerContent>
-                        <DrawerTitle className='sr-only' />
-                        <DrawerDescription className='sr-only' />
+    if (isDesktop) {
+        return (
+            <Popover open={isModalOpened} onOpenChange={setModalOpened}>
+                <PopoverTrigger asChild>
+                    <Button variant='outline' id={fieldId} className='flex-1'>
+                        {targetLabel}
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className='w-[200px] p-0' align='start'>
+                    <OptionsList
+                        options={options}
+                        emptyListLabel={emptyListLabel}
+                        setOpen={setModalOpened}
+                        addNewOption={addNewOption}
+                        onSelectOption={onSelectOption}
+                    />
+                </PopoverContent>
+            </Popover>
+        );
+    }
 
-                        <div className='mt-4 border-t'>
-                            <OptionsList
-                                options={options}
-                                emptyListLabel={emptyListLabel}
-                                setOpen={setModalOpened}
-                                addNewOption={addNewOption}
-                                onSelectOption={onSelectOption}
-                            />
-                        </div>
-                    </DrawerContent>
-                </Drawer>
-            )}
-        </div>
+    return (
+        <Drawer open={isModalOpened} onOpenChange={setModalOpened}>
+            <DrawerTrigger asChild>
+                <Button variant='outline' id='category' className='flex-1'>
+                    {targetLabel}
+                </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+                <DrawerTitle className='sr-only' />
+                <DrawerDescription className='sr-only' />
+
+                <div className='mt-4 border-t'>
+                    <OptionsList
+                        options={options}
+                        emptyListLabel={emptyListLabel}
+                        setOpen={setModalOpened}
+                        addNewOption={addNewOption}
+                        onSelectOption={onSelectOption}
+                    />
+                </div>
+            </DrawerContent>
+        </Drawer>
     );
 }
 

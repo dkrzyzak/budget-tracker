@@ -19,12 +19,13 @@ import {
 } from '../ui/drawer';
 
 interface DatePickerProps {
+    id?: string;
     label?: string;
     value?: Date;
     onChange?: (date: Date) => void;
 }
 
-export function DatePicker({ label, value, onChange }: DatePickerProps) {
+export function DatePicker({ id, value, onChange }: DatePickerProps) {
     const [isCalendarOpen, setCalendarOpen] = useState(false);
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -37,7 +38,7 @@ export function DatePicker({ label, value, onChange }: DatePickerProps) {
         () => (
             <Button
                 variant='outline'
-                id='operation-date'
+                id={id}
                 className={cn(
                     'justify-start text-left font-normal flex-1',
                     !value && 'text-muted-foreground'
@@ -47,39 +48,34 @@ export function DatePicker({ label, value, onChange }: DatePickerProps) {
                 {value ? formatDate(value, 'PPP') : <span>Wybierz datę</span>}
             </Button>
         ),
-        [value]
+        [id, value]
     );
 
-    return (
-        <div className='flex items-center gap-4'>
-            {label && (
-                <label className='text-sm' htmlFor='operation-date'>
-                    {label}
-                </label>
-            )}
-            {isDesktop ? (
-                <Popover open={isCalendarOpen} onOpenChange={setCalendarOpen}>
-                    <PopoverTrigger asChild>{Trigger}</PopoverTrigger>
-                    <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={value} onSelect={onSelect} />
-                    </PopoverContent>
-                </Popover>
-            ) : (
-                <Drawer open={isCalendarOpen} onOpenChange={setCalendarOpen}>
-                    <DrawerTrigger asChild>{Trigger}</DrawerTrigger>
-                    <DrawerContent>
-                        <DrawerTitle className='sr-only' />
-                        <DrawerDescription className='sr-only' />
+    if (isDesktop) {
+        return (
+            <Popover open={isCalendarOpen} onOpenChange={setCalendarOpen}>
+                <PopoverTrigger asChild>{Trigger}</PopoverTrigger>
+                <PopoverContent className='w-auto p-0'>
+                    <Calendar mode='single' selected={value} onSelect={onSelect} />
+                </PopoverContent>
+            </Popover>
+        );
+    }
 
-                        <Calendar
-                            className='mt-4 mx-auto'
-                            mode='single'
-                            selected={value}
-                            onSelect={onSelect}
-                        />
-                    </DrawerContent>
-                </Drawer>
-            )}
-        </div>
+    return (
+        <Drawer open={isCalendarOpen} onOpenChange={setCalendarOpen}>
+            <DrawerTrigger asChild>{Trigger}</DrawerTrigger>
+            <DrawerContent>
+                <DrawerTitle className='sr-only' />
+                <DrawerDescription className='sr-only' />
+
+                <Calendar
+                    className='mt-4 mx-auto'
+                    mode='single'
+                    selected={value}
+                    onSelect={onSelect}
+                />
+            </DrawerContent>
+        </Drawer>
     );
 }

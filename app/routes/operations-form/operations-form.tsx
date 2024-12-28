@@ -31,9 +31,9 @@ function OperationsForm() {
             >
                 <div className='grid gap-4 py-2'>
                     <OperationTypeTabs />
+                    <OperationName />
                     <OperationAmount />
                     <OperationDate />
-                    <OperationName />
                     <OperationCategory />
                     <OperationSource />
                     <Button className='w-auto' type='submit'>

@@ -5,10 +5,11 @@ import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import type { LoaderData } from '~/routes/first-screen';
 import { ComboSelect } from '~/components/form/combo-select';
+import FormField from '~/components/form/form-field';
 
 export function OperationSource() {
     const { sources: loadedSources } = useLoaderData<LoaderData>();
-    const { watch, setValue } = useFormContext<Operation>();
+    const { watch, setValue, formState: { errors } } = useFormContext<Operation>();
     const selectedSourceId = watch('sourceId');
     const operationType = watch('type');
 
@@ -56,14 +57,15 @@ export function OperationSource() {
     const targetLabel = selectedSource ? selectedSource.name : unselectedLabel;
 
     return (
+    <FormField id='source' label={fieldLabel} error={errors.sourceId}>
         <ComboSelect
             options={sources}
             fieldId='source'
-            fieldLabel={fieldLabel}
             targetLabel={targetLabel}
             addNewOption={addNewSource}
             emptyListLabel={emptyListLabel}
             onSelectOption={onSelectSource}
         />
+    </FormField>
     );
 }

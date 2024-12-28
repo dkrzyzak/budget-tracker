@@ -5,10 +5,15 @@ import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import type { LoaderData } from '~/routes/first-screen';
 import { ComboSelect } from '~/components/form/combo-select';
+import FormField from '~/components/form/form-field';
 
 export function OperationCategory() {
     const { categories: loadedCategories } = useLoaderData<LoaderData>();
-    const { watch, setValue } = useFormContext<Operation>();
+    const {
+        watch,
+        setValue,
+        formState: { errors },
+    } = useFormContext<Operation>();
     const selectedCategoryId = watch('categoryId');
 
     const [categories, setCategories] = useState(loadedCategories);
@@ -18,7 +23,7 @@ export function OperationCategory() {
 
     const onSelectCategory = (categoryId: number) => {
         setValue('categoryId', categoryId);
-    }
+    };
 
     const addNewCategory = useCallback((categoryName: string) => {
         setCategories((current) => {
@@ -43,14 +48,15 @@ export function OperationCategory() {
     const targetLabel = selectedCategory ? selectedCategory.name : '+ Wybierz kategorię';
 
     return (
-        <ComboSelect
-            options={categories}
-            fieldId='category'
-            fieldLabel='Kategoria'
-            targetLabel={targetLabel}
-            emptyListLabel='Dodaj kategorię'
-            addNewOption={addNewCategory}
-            onSelectOption={onSelectCategory}
-        />
+        <FormField id='category' label='Kategoria' error={errors.categoryId}>
+            <ComboSelect
+                options={categories}
+                fieldId='category'
+                targetLabel={targetLabel}
+                emptyListLabel='Dodaj kategorię'
+                addNewOption={addNewCategory}
+                onSelectOption={onSelectCategory}
+            />
+        </FormField>
     );
 }

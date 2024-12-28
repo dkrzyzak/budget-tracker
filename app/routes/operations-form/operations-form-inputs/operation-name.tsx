@@ -4,5 +4,5 @@ import type { Operation } from '~/db/models';
 
 export function OperationName() {
     const { register } = useFormContext<Operation>();
-    return <FormInput id='name' label='Nazwa' {...register('name')} />;
+    return <FormInput id='name' label='Nazwa' autoComplete='off' {...register('name')} />;
 }
