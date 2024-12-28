@@ -40,12 +40,12 @@ export function DatePicker({ id, value, onChange }: DatePickerProps) {
                 variant='outline'
                 id={id}
                 className={cn(
-                    'justify-start text-left font-normal flex-1',
+                    'justify-start text-left font-normal flex-1 flex',
                     !value && 'text-muted-foreground'
                 )}
             >
-                <CalendarIcon className='mr-2 h-4 w-4' />
-                {value ? formatDate(value, 'PPP') : <span>Wybierz datę</span>}
+                <CalendarIcon className='h-4 w-4' />
+                <span className='text-center flex-1'>{value ? formatDate(value, 'PPP') : "Wybierz datę"}</span>
             </Button>
         ),
         [id, value]
