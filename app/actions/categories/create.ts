@@ -1,8 +1,6 @@
 import { addCategory, type CreateCategoryData } from '~/db/services/categories';
 import { promised } from '~/lib/utils/promised';
 
-
-
 export const createCategory: ActionFunction<CreateCategoryData> = async ({ request }) => {
     const formData = await request.formData();
     const name = formData.get('categoryName') as string | null;

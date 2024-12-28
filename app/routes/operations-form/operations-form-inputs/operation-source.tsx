@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { type Operation } from '~/db/models';
+import { type CreateOperationFormData } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
@@ -9,15 +9,16 @@ import FormField from '~/components/form/form-field';
 
 export function OperationSource() {
     const { sources: loadedSources } = useLoaderData<LoaderData>();
-    const { watch, setValue, formState: { errors } } = useFormContext<Operation>();
+    const { watch, setValue, formState: { errors } } = useFormContext<CreateOperationFormData>();
     const selectedSourceId = watch('sourceId');
     const operationType = watch('type');
 
     const [sources, setSources] = useState(loadedSources);
     const selectedSource = sources.find((source) => source.id === selectedSourceId);
 
-    const onSelectSource = (sourceId: number) => {
+    const onSelectSource = (sourceId: number, sourceName: string) => {
         setValue('sourceId', sourceId);
+        setValue('sourceName', sourceName);
     };
 
     const addNewSource = useCallback((sourceName: string) => {
@@ -57,7 +58,7 @@ export function OperationSource() {
     const targetLabel = selectedSource ? selectedSource.name : unselectedLabel;
 
     return (
-    <FormField id='source' label={fieldLabel} error={errors.sourceId}>
+    <FormField id='source' label={fieldLabel} error={errors.sourceId ?? errors.sourceName}>
         <ComboSelect
             options={sources}
             fieldId='source'

@@ -22,7 +22,7 @@ interface OptionsListProps<Option extends OptionBase> {
     options: Option[];
     emptyListLabel?: string;
     setOpen: (open: boolean) => void;
-    onSelectOption: (optionId: number) => void;
+    onSelectOption: (optionId: number, optionName: string) => void;
     addNewOption: (optionName: string) => void;
 }
 
@@ -41,13 +41,13 @@ export function OptionsList<Option extends OptionBase>({
 
     const onAddOption = () => {
         addNewOption(optionName);
-        onSelectOption(NEW_OPTION_ID);
+        onSelectOption(NEW_OPTION_ID, optionName);
 
         setOpen(false);
     };
 
-    const onSelect = (value: string) => {
-        onSelectOption(Number(value));
+    const onSelect = (optionId: number, optionName: string) => {
+        onSelectOption(optionId, optionName);
         setOpen(false);
     };
 
@@ -76,8 +76,7 @@ export function OptionsList<Option extends OptionBase>({
                     {filteredOptions.map((option) => (
                         <CommandItem
                             key={option.id}
-                            value={String(option.id)}
-                            onSelect={onSelect}
+                            onSelect={() => onSelect(option.id, option.name)}
                         >
                             {option.name}
                         </CommandItem>

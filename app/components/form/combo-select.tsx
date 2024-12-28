@@ -13,7 +13,7 @@ import { OptionsList, type OptionBase } from '~/components/form/options-list';
 
 interface ComboSelectProps {
     options: OptionBase[];
-    onSelectOption: (optionId: number) => void;
+    onSelectOption: (optionId: number, optionName: string) => void;
     addNewOption: (optionName: string) => void;
     fieldId?: string;
     targetLabel?: string;

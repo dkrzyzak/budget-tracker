@@ -1,12 +1,12 @@
 import { useFormContext } from 'react-hook-form';
 import { FormInput } from '~/components/form/form-input';
-import type { Operation } from '~/db/models';
+import type { CreateOperationFormData } from '~/db/models';
 
 export function OperationAmount() {
     const {
         register,
         formState: { errors },
-    } = useFormContext<Operation>();
+    } = useFormContext<CreateOperationFormData>();
 
     return (
         <FormInput

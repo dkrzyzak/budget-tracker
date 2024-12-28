@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { type Operation } from '~/db/models';
+import { type CreateOperationFormData } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
@@ -13,7 +13,7 @@ export function OperationCategory() {
         watch,
         setValue,
         formState: { errors },
-    } = useFormContext<Operation>();
+    } = useFormContext<CreateOperationFormData>();
     const selectedCategoryId = watch('categoryId');
 
     const [categories, setCategories] = useState(loadedCategories);
@@ -21,8 +21,9 @@ export function OperationCategory() {
         (category) => category.id === selectedCategoryId
     );
 
-    const onSelectCategory = (categoryId: number) => {
+    const onSelectCategory = (categoryId: number, categoryName: string) => {
         setValue('categoryId', categoryId);
+        setValue('categoryName', categoryName);
     };
 
     const addNewCategory = useCallback((categoryName: string) => {
@@ -48,7 +49,7 @@ export function OperationCategory() {
     const targetLabel = selectedCategory ? selectedCategory.name : '+ Wybierz kategorię';
 
     return (
-        <FormField id='category' label='Kategoria' error={errors.categoryId}>
+        <FormField id='category' label='Kategoria' error={errors.categoryId ?? errors.categoryName}>
             <ComboSelect
                 options={categories}
                 fieldId='category'
