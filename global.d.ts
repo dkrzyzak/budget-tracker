@@ -12,6 +12,10 @@ declare global {
         [K in keyof T]: T[K];
     } & {};
 
+    type Maybe<T> = T | null | undefined;
+
+    type AnyObject = Record<string, any>;
+
     type ActionResult<AdditionalData = {}> = {
         success: boolean;
         message?: string;

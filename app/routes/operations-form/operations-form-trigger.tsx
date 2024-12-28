@@ -44,9 +44,9 @@ function OperationsFormTrigger() {
             <DrawerTrigger asChild>
                 <Button variant='outline'>Dodaj wpis</Button>
             </DrawerTrigger>
-            <DrawerContent className='p-8'>
+            <DrawerContent className='px-8 pb-8'>
                 <DrawerTitle className='text-center mt-4'>Dodaj wpis</DrawerTitle>
-                <DrawerDescription className='text-center'>
+                <DrawerDescription className='text-center my-2'>
                     Na co poszło tym razem? A może to dzień wypłaty?
                 </DrawerDescription>
 
