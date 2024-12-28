@@ -1,6 +1,5 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { Button } from '~/components/ui/button';
 import {
     Command,
@@ -10,11 +9,10 @@ import {
     CommandItem,
     CommandList,
 } from '~/components/ui/command';
-import type { Operation } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 
 // every option must have those properties
-interface OptionBase {
+export interface OptionBase {
     id: number;
     name: string;
     frequency: number;
@@ -22,21 +20,20 @@ interface OptionBase {
 
 interface OptionsListProps<Option extends OptionBase> {
     options: Option[];
-    fieldName: keyof Operation;
-    commandEmptyCTA: string;
+    emptyListLabel?: string;
     setOpen: (open: boolean) => void;
+    onSelectOption: (optionId: number) => void;
     addNewOption: (optionName: string) => void;
 }
 
 export function OptionsList<Option extends OptionBase>({
     options,
-    fieldName,
-    commandEmptyCTA,
+    emptyListLabel,
     setOpen,
     addNewOption,
+    onSelectOption,
 }: OptionsListProps<Option>) {
     const [optionName, setOptionName] = useState('');
-    const { setValue } = useFormContext<Operation>();
 
     const filteredOptions = options.filter((option) =>
         option.name.toLowerCase().includes(optionName.toLowerCase().trim())
@@ -44,13 +41,13 @@ export function OptionsList<Option extends OptionBase>({
 
     const onAddOption = () => {
         addNewOption(optionName);
-        setValue(fieldName, NEW_OPTION_ID);
+        onSelectOption(NEW_OPTION_ID);
 
         setOpen(false);
     };
 
-    const onSelectOption = (value: string) => {
-        setValue(fieldName, Number(value));
+    const onSelect = (value: string) => {
+        onSelectOption(Number(value));
         setOpen(false);
     };
 
@@ -64,7 +61,7 @@ export function OptionsList<Option extends OptionBase>({
             <CommandList>
                 <CommandEmpty>
                     <div className='grid gap-2 px-4'>
-                        <p>{commandEmptyCTA}</p>
+                        <p>{emptyListLabel}</p>
                         <Button
                             disabled={!optionName}
                             variant='outline'
@@ -80,7 +77,7 @@ export function OptionsList<Option extends OptionBase>({
                         <CommandItem
                             key={option.id}
                             value={String(option.id)}
-                            onSelect={onSelectOption}
+                            onSelect={onSelect}
                         >
                             {option.name}
                         </CommandItem>

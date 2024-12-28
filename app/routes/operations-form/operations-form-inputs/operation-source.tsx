@@ -1,31 +1,23 @@
-import { useCallback, useState } from 'react';
-import { useMediaQuery } from '~/hooks/use-media-query';
-import { Button } from '~/components/ui/button';
-import {
-    Drawer,
-    DrawerContent,
-    DrawerDescription,
-    DrawerTitle,
-    DrawerTrigger,
-} from '~/components/ui/drawer';
-import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
+import { useCallback, useMemo, useState } from 'react';
 import { type Operation } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import type { LoaderData } from '~/routes/first-screen';
-import { OptionsList } from './options-list';
+import { ComboSelect } from '~/components/form/combo-select';
 
 export function OperationSource() {
     const { sources: loadedSources } = useLoaderData<LoaderData>();
-    const isDesktop = useMediaQuery('(min-width: 768px)');
-    const { watch } = useFormContext<Operation>();
+    const { watch, setValue } = useFormContext<Operation>();
     const selectedSourceId = watch('sourceId');
     const operationType = watch('type');
 
     const [sources, setSources] = useState(loadedSources);
-    const [isModalOpened, setModalOpened] = useState(false);
     const selectedSource = sources.find((source) => source.id === selectedSourceId);
+
+    const onSelectSource = (sourceId: number) => {
+        setValue('sourceId', sourceId);
+    };
 
     const addNewSource = useCallback((sourceName: string) => {
         setSources((current) => {
@@ -45,82 +37,33 @@ export function OperationSource() {
         });
     }, []);
 
-    if (isDesktop) {
-        return (
-            <div className='flex items-center gap-4'>
-                <label className='text-sm' htmlFor='source'>
-                    {operationType === 'expense' ? 'Odbiorca' : 'Źródło'}
-                </label>
-                <Popover open={isModalOpened} onOpenChange={setModalOpened}>
-                    <PopoverTrigger asChild>
-                        <Button variant='outline' id='source' className='flex-1'>
-                            {selectedSource ? (
-                                <>{selectedSource.name}</>
-                            ) : (
-                                <>
-                                    {operationType === 'expense'
-                                        ? '+ Wybierz odbiorcę'
-                                        : '+ Wybierz źródło'}
-                                </>
-                            )}
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-[200px] p-0' align='start'>
-                        <OptionsList
-                            options={sources}
-                            fieldName='sourceId'
-                            commandEmptyCTA={
-                                operationType === 'expense'
-                                    ? 'Dodaj odbiorcę'
-                                    : 'Dodaj źródło'
-                            }
-                            setOpen={setModalOpened}
-                            addNewOption={addNewSource}
-                        />
-                    </PopoverContent>
-                </Popover>
-            </div>
-        );
-    }
+    const { fieldLabel, unselectedLabel, emptyListLabel } = useMemo(
+        () =>
+            operationType === 'expense'
+                ? {
+                      fieldLabel: 'Odbiorca',
+                      unselectedLabel: '+ Wybierz odbiorcę',
+                      emptyListLabel: 'Dodaj odbiorcę',
+                  }
+                : {
+                      fieldLabel: 'Źródło',
+                      unselectedLabel: '+ Wybierz źródło',
+                      emptyListLabel: 'Dodaj źródło',
+                  },
+        [operationType]
+    );
+
+    const targetLabel = selectedSource ? selectedSource.name : unselectedLabel;
 
     return (
-        <div className='flex items-center gap-4'>
-            <label className='text-sm' htmlFor='source'>
-                {operationType === 'expense' ? 'Odbiorca' : 'Źródło'}
-            </label>
-            <Drawer open={isModalOpened} onOpenChange={setModalOpened}>
-                <DrawerTrigger asChild>
-                    <Button variant='outline' className='flex-1' id="source">
-                        {selectedSource ? (
-                            <>{selectedSource.name}</>
-                        ) : (
-                            <>
-                                {operationType === 'expense'
-                                    ? '+ Wybierz odbiorcę'
-                                    : '+ Wybierz źródło'}
-                            </>
-                        )}
-                    </Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                    <DrawerTitle className='sr-only' />
-                    <DrawerDescription className='sr-only' />
-
-                    <div className='mt-4 border-t'>
-                        <OptionsList
-                            options={sources}
-                            fieldName='sourceId'
-                            commandEmptyCTA={
-                                operationType === 'expense'
-                                    ? 'Dodaj odbiorcę'
-                                    : 'Dodaj źródło'
-                            }
-                            setOpen={setModalOpened}
-                            addNewOption={addNewSource}
-                        />
-                    </div>
-                </DrawerContent>
-            </Drawer>
-        </div>
+        <ComboSelect
+            options={sources}
+            fieldId='source'
+            fieldLabel={fieldLabel}
+            targetLabel={targetLabel}
+            addNewOption={addNewSource}
+            emptyListLabel={emptyListLabel}
+            onSelectOption={onSelectSource}
+        />
     );
 }
