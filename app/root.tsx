@@ -4,11 +4,14 @@ import {
     Meta,
     Outlet,
     Scripts,
-    // ScrollRestoration,
+    useLoaderData,
+    type LoaderFunctionArgs,
+    ScrollRestoration,
 } from 'react-router';
 import { Toaster } from '~/components/ui/sonner';
 import type { Route } from './+types/root';
 import { ThemeProvider } from './context/ThemeContext';
+import { parseThemeCookie } from './actions/theme';
 
 import stylesheet from './app.css?url';
 
@@ -26,18 +29,29 @@ export const links: Route.LinksFunction = () => [
     },
 ];
 
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+    const theme = await parseThemeCookie(request);
+
+    return { theme };
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+    const { theme } = useLoaderData<typeof loader>();
+
     return (
-        <html lang='en' className='dark'>
+        <html lang='en' className={theme}>
             <head>
                 <meta charSet='utf-8' />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                <meta
+                    name='viewport'
+                    content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+                />
                 <Meta />
                 <Links />
             </head>
             <body>
-                <ThemeProvider>{children}</ThemeProvider>
-                {/* <ScrollRestoration /> */}
+                <ThemeProvider defaultTheme={theme}>{children}</ThemeProvider>
+                <ScrollRestoration />
                 <Toaster />
                 <Scripts />
             </body>

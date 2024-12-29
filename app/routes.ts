@@ -11,6 +11,9 @@ export default [
 
     route('/login', './routes/first-screen.tsx'),
 
+    // API
+    route('/api/set-theme', './actions/theme/action.server.ts'),
+
     // CATCH ALL
     route('*', './routes/catch-all.ts'),
 ] satisfies RouteConfig;
