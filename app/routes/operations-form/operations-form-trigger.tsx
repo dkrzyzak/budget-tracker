@@ -16,13 +16,15 @@ import {
     DrawerTrigger,
 } from '~/components/ui/drawer';
 import { useMediaQuery } from '~/hooks/use-media-query';
+import { useState } from 'react';
 
 function OperationsFormTrigger() {
     const isDesktop = useMediaQuery('(min-width: 768px)');
+    const [isOpen, setOpen] = useState(false);
 
     if (isDesktop) {
         return (
-            <Dialog>
+            <Dialog open={isOpen} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button variant='outline'>Dodaj wpis</Button>
                 </DialogTrigger>
@@ -33,14 +35,14 @@ function OperationsFormTrigger() {
                             Na co poszło tym razem? A może to dzień wypłaty?
                         </DialogDescription>
                     </DialogHeader>
-                    <OperationsForm />
+                    <OperationsForm setOpen={setOpen} />
                 </DialogContent>
             </Dialog>
         );
     }
 
     return (
-        <Drawer>
+        <Drawer open={isOpen} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
                 <Button variant='outline'>Dodaj wpis</Button>
             </DrawerTrigger>
@@ -50,7 +52,7 @@ function OperationsFormTrigger() {
                     Na co poszło tym razem? A może to dzień wypłaty?
                 </DrawerDescription>
 
-                <OperationsForm />
+                <OperationsForm setOpen={setOpen} />
             </DrawerContent>
         </Drawer>
     );

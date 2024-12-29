@@ -9,27 +9,44 @@ import { OperationCategory } from './operations-form-inputs/operation-category';
 import { createOperationFormParser, type CreateOperationFormData } from '~/db/models';
 import { OperationDate } from './operations-form-inputs/operation-date';
 import { Button } from '~/components/ui/button';
-import { Form, useFetcher } from 'react-router';
+import { Form } from 'react-router';
 import { toFormData } from '~/lib/utils/form-data';
-// import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
+import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
+import { toast } from 'sonner';
 
-function OperationsForm() {
+interface OperationsFormProps {
+    setOpen: (open: boolean) => void;
+}
+
+function OperationsForm({ setOpen }: OperationsFormProps) {
     const form = useForm({
         defaultValues: initialData,
         resolver: zodResolver(createOperationFormParser),
     });
 
-    const fetcher = useFetcher();
+    const { submit } = useAwaitedFetcher();
 
     const onSubmit: SubmitHandler<CreateOperationFormData> = async (data) => {
         const formData = toFormData(data);
         console.log(data, formData);
-        await fetcher.submit(formData, { method: 'POST' });
+        const { success, message } = await submit(formData, { method: 'POST' });
+
+        if (!success) {
+            return toast.error(message);
+        }
+
+        setOpen(false);
+        toast.success('Utworzono nowy wpis!');
     };
 
     return (
         <FormProvider {...form}>
-            <Form onSubmit={form.handleSubmit(onSubmit, (errors) => void console.log('form was invalid', errors))}>
+            <Form
+                onSubmit={form.handleSubmit(
+                    onSubmit,
+                    (errors) => void console.log('form was invalid', errors)
+                )}
+            >
                 <div className='grid gap-4 py-2'>
                     <OperationTypeTabs />
                     <OperationName />

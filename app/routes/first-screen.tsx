@@ -4,7 +4,7 @@ import OperationsFormTrigger from './operations-form/operations-form-trigger';
 import { getCategoriesByUsage } from '~/db/services/categories';
 import { promised } from '~/lib/utils';
 import { getSourcesByFrequency } from '~/db/services/sources/getSource';
-import { createOperationFormParser } from '~/db/models';
+import { createOperation } from '~/actions/operations/create.server';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
@@ -30,18 +30,8 @@ export const loader = async () => {
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;
 
-export const action: ActionFunction = async ({ request }) => {
-    const data = await request.formData();
-    const dataAsObject = Object.fromEntries(data.entries());
-    const parsed = createOperationFormParser.safeParse(dataAsObject);
-
-    if (parsed.success) {
-        console.log(parsed.data);
-    } else {
-        console.log(parsed.error.issues);
-    }
-
-    return { success: true };
+export const action: ActionFunction = async (args) => {
+    return await createOperation(args);
 };
 
 export default function FirstScreen() {

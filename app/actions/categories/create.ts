@@ -20,5 +20,5 @@ export const createCategory: ActionFunction<CreateCategoryData> = async ({ reque
         };
     }
 
-    return { success: true, id: data[0].id };
+    return { success: true, id: data.id };
 };

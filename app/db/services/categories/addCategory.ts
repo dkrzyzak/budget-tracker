@@ -4,7 +4,10 @@ import type { CategoryDto } from '~/db/models';
 export type CreateCategoryData = { id?: number };
 
 export async function addCategory(categoryName: string) {
-    const res = await db.insert({ name: categoryName }).into<CategoryDto>('categories').returning('id');
+    const res = await db
+        .insert({ name: categoryName })
+        .into<CategoryDto>('categories')
+        .returning('id');
 
-    return res;
+    return res[0];
 }

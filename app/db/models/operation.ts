@@ -48,6 +48,7 @@ export const createOperationFormParser = createOperationFormSchema.transform((da
 
 export type Operation = z.infer<typeof operationSchema>;
 export type CreateOperationFormData = z.infer<typeof createOperationFormSchema>;
+export type OperationFormDataParsed = z.infer<typeof createOperationFormParser>;
 
 export type OperationDto = Dto<Operation>;
 export type OperationType = Operation['type'];
