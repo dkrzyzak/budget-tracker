@@ -7,7 +7,7 @@ import { stripTimeZone } from '~/lib/utils/date';
 export const operationSchema = z.object({
     type: z.enum(['expense', 'income']),
     name: z.string().optional(),
-    amount: z.number(),
+    amount: z.string(), // DECIMAL is "100.00"
     operationDate: z.date(),
     categoryId: z.number(),
     sourceId: z.number(),

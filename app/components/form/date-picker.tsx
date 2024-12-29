@@ -7,7 +7,7 @@ import { cn } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 import { Calendar } from '~/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
-import { formatDate } from '~/lib/utils/date';
+import { formatDefault } from '~/lib/utils/date';
 import type { SelectSingleEventHandler } from 'react-day-picker';
 import { useMediaQuery } from '~/hooks/use-media-query';
 import {
@@ -45,7 +45,9 @@ export function DatePicker({ id, value, onChange }: DatePickerProps) {
                 )}
             >
                 <CalendarIcon className='h-4 w-4' />
-                <span className='text-center flex-1'>{value ? formatDate(value, 'PPP') : "Wybierz datę"}</span>
+                <span className='text-center flex-1'>
+                    {value ? formatDefault(value) : 'Wybierz datę'}
+                </span>
             </Button>
         ),
         [id, value]

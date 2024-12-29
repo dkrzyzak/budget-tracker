@@ -7,6 +7,10 @@ export function formatDate(date: FormatArgs[0], formatStr: FormatArgs[1]) {
     return format(date, formatStr, { weekStartsOn: 1, locale: pl });
 }
 
+export function formatDefault(date: Date) {
+    return formatDate(date, 'PPP');
+}
+
 export function stripTimeZone(date: Date): Date {
     const year = date.getFullYear();
     const month = date.getMonth(); // Note: getMonth() is zero-based
