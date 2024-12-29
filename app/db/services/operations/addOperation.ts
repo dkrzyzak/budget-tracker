@@ -9,7 +9,7 @@ export async function addOperation(operation: OperationFormDataParsed) {
             operationDate: operation.operationDate,
             categoryId: operation.categoryId,
             sourceId: operation.sourceId,
-            name: operation.name ?? `${operation.categoryName} - ${operation.sourceName}`,
+            name: operation.name || `${operation.categoryName} - ${operation.sourceName}`,
         })
         .into<OperationDto>('operations');
 

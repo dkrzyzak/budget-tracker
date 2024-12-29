@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation, type LinkProps } from 'react-router';
+import { NavLink, type NavLinkProps } from 'react-router';
 import { Button } from '~/components/ui/button';
 import {
     Sheet,
@@ -12,18 +12,19 @@ import {
 import { menuLinks } from './constants';
 import { cn } from '~/lib/utils';
 
-type MobileMenuItemProps = LinkProps & {
-    active?: boolean;
+type MobileMenuItemProps = NavLinkProps & {
     setMenuOpen: (open: boolean) => void;
 };
 
-function MobileMenuItem({ setMenuOpen, active, ...props }: MobileMenuItemProps) {
+function MobileMenuItem({ setMenuOpen, ...props }: MobileMenuItemProps) {
     return (
-        <Link
-            className={cn(
-                'px-4 py-2 text-lg hover:text-gray-300 active:text-gray-300',
-                active && 'text-primary hover:text-primary/90'
-            )}
+        <NavLink
+            className={({ isActive }) =>
+                cn(
+                    'px-4 py-2 text-lg hover:text-gray-300 active:text-gray-300',
+                    isActive && 'text-primary hover:text-primary/90'
+                )
+            }
             onClick={() => setMenuOpen(false)}
             {...props}
         />
@@ -31,7 +32,6 @@ function MobileMenuItem({ setMenuOpen, active, ...props }: MobileMenuItemProps) 
 }
 
 export function MobileMenu() {
-    const { pathname } = useLocation();
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -51,7 +51,6 @@ export function MobileMenu() {
                             <MobileMenuItem
                                 key={link.label}
                                 to={link.to}
-                                active={link.to === pathname}
                                 setMenuOpen={setMenuOpen}
                             >
                                 {link.label}
