@@ -1,13 +1,12 @@
-import { DialogTrigger } from '@radix-ui/react-dialog';
-import { Button } from '~/components/ui/button';
+import { useState, type PropsWithChildren } from 'react';
 import {
     Dialog,
     DialogContent,
+    DialogTrigger,
     DialogDescription,
     DialogHeader,
     DialogTitle,
 } from '~/components/ui/dialog';
-import OperationsForm from './operations-form';
 import {
     Drawer,
     DrawerContent,
@@ -16,9 +15,9 @@ import {
     DrawerTrigger,
 } from '~/components/ui/drawer';
 import { useMediaQuery } from '~/hooks/use-media-query';
-import { useState } from 'react';
+import OperationsForm from './operations-form';
 
-function OperationsFormTrigger() {
+function OperationsFormTrigger({ children }: PropsWithChildren) {
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [isOpen, setOpen] = useState(false);
 
@@ -26,7 +25,7 @@ function OperationsFormTrigger() {
         return (
             <Dialog open={isOpen} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant='outline'>Dodaj wpis</Button>
+                {children}
                 </DialogTrigger>
                 <DialogContent className='sm:max-w-[425px]'>
                     <DialogHeader>
@@ -44,7 +43,7 @@ function OperationsFormTrigger() {
     return (
         <Drawer open={isOpen} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
-                <Button variant='outline'>Dodaj wpis</Button>
+                {children}
             </DrawerTrigger>
             <DrawerContent className='px-8 pb-8'>
                 <DrawerTitle className='text-center mt-4'>Dodaj wpis</DrawerTitle>

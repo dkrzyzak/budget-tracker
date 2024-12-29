@@ -1,10 +1,16 @@
-import { index, route, type RouteConfig } from '@react-router/dev/routes';
+import { index, layout, route, type RouteConfig } from '@react-router/dev/routes';
 
 export default [
-	// UI
-    index('./routes/first-screen.tsx'),
-    route('/colors', './routes/colors.tsx'),
+    layout('./routes/dashboard/layout.tsx', [
+        index('./routes/dashboard/index.tsx'),
+        route('/operations', './routes/operations/index.tsx'),
+        route('/categories', './routes/categories/index.tsx'),
+        route('/sources', './routes/sources/index.tsx'),
+        route('/colors', './routes/colors.tsx'),
+    ]),
 
-	// CATCH ALL
+    route('/login', './routes/first-screen.tsx'),
+
+    // CATCH ALL
     route('*', './routes/catch-all.ts'),
 ] satisfies RouteConfig;

@@ -3,7 +3,7 @@ import { type CreateOperationFormData } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
-import type { LoaderData } from '~/routes/first-screen';
+import type { LoaderData } from '~/routes/dashboard';
 import { ComboSelect } from '~/components/form/combo-select';
 import FormField from '~/components/form/form-field';
 
