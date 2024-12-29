@@ -21,7 +21,7 @@ export const createOperationFormSchema = operationSchema.extend({
     amount: z
         .string()
         .min(1, 'Podaj kwotę')
-        .regex(/^\d+([.,]\d{2})?$/, 'Podaj liczbę'),
+        .regex(/^\d+([.,]\d{1,2})?$/, 'Podaj liczbę'),
 
     operationDate: z.union([z.date(), z.string().transform((date) => new Date(date))]),
 
