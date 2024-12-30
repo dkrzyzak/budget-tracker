@@ -14,7 +14,7 @@ import { renderToPipeableStream } from "react-dom/server";
 // initialize db
 import "~/db/connection.server";
 
-const ABORT_DELAY = 5_000;
+export const streamTimeout = 8_000;
 
 export default function handleRequest(
   request: Request,
@@ -49,7 +49,6 @@ function handleBotRequest(
       <ServerRouter
         context={reactRouterContext}
         url={request.url}
-        abortDelay={ABORT_DELAY}
       />,
       {
         onAllReady() {
@@ -83,7 +82,7 @@ function handleBotRequest(
       }
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    setTimeout(abort, streamTimeout + 1000);
   });
 }
 
@@ -99,7 +98,6 @@ function handleBrowserRequest(
       <ServerRouter
         context={reactRouterContext}
         url={request.url}
-        abortDelay={ABORT_DELAY}
       />,
       {
         onShellReady() {
@@ -133,6 +131,6 @@ function handleBrowserRequest(
       }
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    setTimeout(abort, streamTimeout + 1000);
   });
 }

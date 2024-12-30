@@ -23,7 +23,7 @@ function CategoryItem({ category }: CategoryItemProps) {
                 <Button variant='outline' onClick={() => editCategory(category)}>
                     <Pencil />
                 </Button>
-                <Button variant='destructive' onClick={() => deleteCategory(category.id)}>
+                <Button variant='destructive' onClick={() => deleteCategory(category)}>
                     <Trash />
                 </Button>
             </div>

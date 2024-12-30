@@ -20,7 +20,7 @@ export const updateCategoryAction: ActionFunction = async ({ request }) => {
         };
     }
 
-    const [_, error] = await promised(updateCategory, formData);
+    const [_changedRows, error] = await promised(updateCategory, formData);
 
     if (error) {
         return {
@@ -29,5 +29,5 @@ export const updateCategoryAction: ActionFunction = async ({ request }) => {
         };
     }
 
-    return { success: true };
+    return { success: true, message: 'Zapisano zmiany!' };
 };

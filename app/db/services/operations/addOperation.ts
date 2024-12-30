@@ -13,5 +13,5 @@ export async function addOperation(operation: OperationFormDataParsed) {
         })
         .into<OperationDto>('operations');
 
-    return res;
+    return res[0];
 }

@@ -10,19 +10,25 @@ import CategoryFormModal from './category-form-modal';
 import { emptyCategoryData } from '../category-form/constants';
 import type { CategoryDto } from '~/db/models';
 import type { FormMode } from '../category-form/category-form';
+import CategoryDeleteDialog from './category-delete-dialog';
 
 export type CategoryContextData = {
     createCategory: () => void;
     editCategory: (category: CategoryDto) => void;
-    deleteCategory: (categoryId: number) => void;
+    deleteCategory: (category: CategoryDto) => void;
 };
 
 export const CategoryContext = createContext<CategoryContextData | null>(null);
 
 export function CategoryContextProvider({ children }: PropsWithChildren) {
+    // CREATE/UPDATE STATE
     const [isModalOpen, setModalOpen] = useState(false);
     const [formMode, setFormMode] = useState<FormMode>('create');
     const [formDefaultValues, setFormDefaultValues] = useState(emptyCategoryData);
+
+    // DELETE STATE
+    const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [categoryToDelete, setCategoryToDelete] = useState<CategoryDto>();
 
     const createCategory = useCallback(() => {
         setFormMode('create');
@@ -32,16 +38,13 @@ export function CategoryContextProvider({ children }: PropsWithChildren) {
 
     const editCategory = useCallback((category: CategoryDto) => {
         setFormMode('edit');
-        setFormDefaultValues({
-            name: category.name,
-            color: category.color,
-            icon: category.icon,
-        });
+        setFormDefaultValues(category);
         setModalOpen(true);
     }, []);
 
-    const deleteCategory = useCallback((categoryId: number) => {
-        console.log('usuwamy ', categoryId);
+    const deleteCategory = useCallback((category: CategoryDto) => {
+        setCategoryToDelete(category);
+        setDeleteDialogOpen(true);
     }, []);
 
     const contextValue = useMemo(
@@ -62,6 +65,12 @@ export function CategoryContextProvider({ children }: PropsWithChildren) {
                 defaultValues={formDefaultValues}
                 isOpen={isModalOpen}
                 setOpen={setModalOpen}
+            />
+
+            <CategoryDeleteDialog
+                selectedCategory={categoryToDelete}
+                isOpen={isDeleteDialogOpen}
+                setOpen={setDeleteDialogOpen}
             />
         </CategoryContext.Provider>
     );

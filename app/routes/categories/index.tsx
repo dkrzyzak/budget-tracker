@@ -1,10 +1,10 @@
 import { type MetaFunction } from 'react-router';
 import { getCategoriesByUsage } from '~/db/services/categories';
 import CategoriesList from './categories-list/categories-list';
-import { createCategoryAction } from '~/actions/categories/create';
-import { deleteCategoryAction } from '~/actions/categories/delete';
+import { createCategoryAction } from '~/actions/categories/create.server';
+import { deleteCategoryAction } from '~/actions/categories/delete.server';
 import { CategoryContextProvider } from './categories-list/category-management-context';
-import { updateCategoryAction } from '~/actions/categories/update';
+import { updateCategoryAction } from '~/actions/categories/update.server';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Kategorie | Billans' }];
@@ -33,12 +33,12 @@ export const action: ActionFunction = (args) => {
         }
     }
 
-    return Promise.resolve({ success: true, message: 'cyk' });
+    return Promise.resolve({ success: false, message: 'Tej metody nie obsługujemy' });
 };
 
 export default function CategoriesPage() {
     return (
-        <div className='grid'>
+        <div className='grid my-16'>
             <h1 className='text-3xl mb-12'>Kategorie</h1>
             <CategoryContextProvider>
                 <CategoriesList />

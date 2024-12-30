@@ -35,9 +35,7 @@ function CategoryForm({ defaultValues, formMode, setOpen }: CategoryFormProps) {
         }
 
         setOpen(false);
-        toast.success(
-            formMode === 'create' ? 'Utworzono nową kategorię!' : 'Zapisano zmiany!'
-        );
+        toast.success(message);
     };
 
     return (

@@ -20,7 +20,7 @@ export const createCategoryAction: ActionFunction = async ({ request }) => {
         };
     }
 
-    const [_, error] = await promised(addCategory, formData);
+    const [_categoryId, error] = await promised(addCategory, formData);
 
     if (error) {
         return {
@@ -29,5 +29,5 @@ export const createCategoryAction: ActionFunction = async ({ request }) => {
         };
     }
 
-    return { success: true };
+    return { success: true, message: 'Utworzono nową kategorię!' };
 };

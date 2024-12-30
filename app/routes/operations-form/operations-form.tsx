@@ -36,7 +36,7 @@ function OperationsForm({ setOpen }: OperationsFormProps) {
         }
 
         setOpen(false);
-        toast.success('Utworzono nowy wpis!');
+        toast.success(message);
     };
 
     return (

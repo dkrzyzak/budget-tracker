@@ -1,3 +1,4 @@
+import type { ForwardRefExoticComponent } from 'react';
 import type { ActionFunctionArgs } from 'react-router';
 
 declare global {
@@ -18,7 +19,7 @@ declare global {
 
     type ActionResult<AdditionalData = {}> = {
         success: boolean;
-        message?: string;
+        message: string;
     } & AdditionalData;
 
     interface ActionFunction<AdditionalData = {}> {
@@ -27,6 +28,8 @@ declare global {
             handlerCtx?: unknown
         ): Promise<ActionResult<AdditionalData>>;
     }
+
+    type ExtractForwardRefProps<T> = T extends ForwardRefExoticComponent<infer P> ? P : T;
 }
 
 export {};

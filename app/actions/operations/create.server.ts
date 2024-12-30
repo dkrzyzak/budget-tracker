@@ -20,7 +20,12 @@ export const createOperation: ActionFunction = async ({ request }) => {
 
     // if category is new, insert it into the db
     if (data.categoryId === NEW_OPTION_ID) {
-        const [newCategory, error] = await promised(addCategory, { name: data.categoryName });
+        const [newCategory, error] = await promised(addCategory, {
+            name: data.categoryName,
+            id: null,
+            color: null,
+            icon: null,
+        });
 
         if (error) {
             return {
@@ -50,7 +55,7 @@ export const createOperation: ActionFunction = async ({ request }) => {
         sourceId = newSource.id;
     }
 
-    const [_, error] = await promised(addOperation, {
+    const [_changedRows, error] = await promised(addOperation, {
         ...data,
         sourceId,
         categoryId,
@@ -63,5 +68,5 @@ export const createOperation: ActionFunction = async ({ request }) => {
         };
     }
 
-    return { success: true };
+    return { success: true, message: 'Dodano nowy wpis!' };
 };

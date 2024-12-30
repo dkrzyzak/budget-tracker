@@ -9,8 +9,7 @@ export const deleteCategoryAction: ActionFunction = async ({ request }) => {
         return { success: false, message: 'Przekazano złe dane' };
     }
 
-
-    const [_, error] = await promised(deleteCategory, categoryId);
+    const [_changedRows, error] = await promised(deleteCategory, categoryId);
 
     if (error) {
         return {
@@ -19,5 +18,5 @@ export const deleteCategoryAction: ActionFunction = async ({ request }) => {
         };
     }
 
-    return { success: true };
+    return { success: true, message: 'Pomyślnie usunięto kategorię' };
 };
