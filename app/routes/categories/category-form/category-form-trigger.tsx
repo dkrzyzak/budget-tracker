@@ -1,5 +1,5 @@
 import { useState, type PropsWithChildren } from 'react';
-import OperationsForm from './operations-form';
+import CategoryForm from './category-form';
 import type { ResponsiveModalClassnames } from '~/components/responsive-modal';
 import ResponsiveModal from '~/components/responsive-modal';
 
@@ -10,7 +10,7 @@ const classNames: ResponsiveModalClassnames = {
     descriptionMobile: 'text-center my-2',
 };
 
-function OperationsFormTrigger({ children }: PropsWithChildren) {
+function CategoryFormTrigger({ children }: PropsWithChildren) {
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -18,13 +18,13 @@ function OperationsFormTrigger({ children }: PropsWithChildren) {
             isOpen={isOpen}
             setOpen={setOpen}
             trigger={children}
-            title='Dodaj wpis'
-            description='Na co poszło tym razem? A może to dzień wypłaty?'
+            title='Edytuj kategorię'
+            description='Literówka? Brzydki kolor? Bez przypału, wszystko można zmienić ;-)'
             classNames={classNames}
         >
-            <OperationsForm setOpen={setOpen} />
+            <CategoryForm setOpen={setOpen} />
         </ResponsiveModal>
     );
 }
 
-export default OperationsFormTrigger;
+export default CategoryFormTrigger;

@@ -1,17 +1,26 @@
-import { addCategory, type CreateCategoryData } from '~/db/services/categories';
+import { categoryFormSchema } from '~/db/models';
+import { addCategory } from '~/db/services/categories';
 import { promised } from '~/lib/utils/promised';
 
-export const createCategory: ActionFunction<CreateCategoryData> = async ({ request }) => {
-    const formData = await request.formData();
-    const name = formData.get('categoryName') as string | null;
+export const createCategoryAction: ActionFunction = async ({ request }) => {
+    const formDataObject = Object.fromEntries((await request.formData()).entries());
+    const parsedForm = categoryFormSchema.safeParse(formDataObject);
 
-    if (!name?.trim()) {
+    if (!parsedForm.success) {
+        console.log('errors: ', parsedForm.error.issues);
+        return { success: false, message: 'Przekazano złe dane' };
+    }
+
+    const { data: formData } = parsedForm;
+
+    if (!formData.name.trim()) {
         return {
             success: false,
-            message: 'Missing or empty "categoryName" parameter in form data',
+            message: 'Pusta nazwa kategorii nie jest dozwolona',
         };
     }
-    const [data, error] = await promised(addCategory, name.trim());
+
+    const [_, error] = await promised(addCategory, formData);
 
     if (error) {
         return {
@@ -20,5 +29,5 @@ export const createCategory: ActionFunction<CreateCategoryData> = async ({ reque
         };
     }
 
-    return { success: true, id: data.id };
+    return { success: true };
 };

@@ -1,11 +1,13 @@
 import { db } from '~/db/connection.server';
-import type { CategoryDto } from '~/db/models';
+import type { CategoryDto, CategoryFormData } from '~/db/models';
 
-export type CreateCategoryData = { id?: number };
-
-export async function addCategory(categoryName: string) {
+export async function addCategory(category: CategoryFormData) {
     const res = await db
-        .insert({ name: categoryName })
+        .insert({
+            name: category.name,
+            icon: category.icon || null,
+            color: category.color || null,
+        })
         .into<CategoryDto>('categories')
         .returning('id');
 

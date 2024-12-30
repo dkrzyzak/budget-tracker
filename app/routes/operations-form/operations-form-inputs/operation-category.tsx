@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { type CreateOperationFormData } from '~/db/models';
+import { type OperationFormData } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
@@ -13,7 +13,7 @@ export function OperationCategory() {
         watch,
         setValue,
         formState: { errors },
-    } = useFormContext<CreateOperationFormData>();
+    } = useFormContext<OperationFormData>();
     const selectedCategoryId = watch('categoryId');
 
     const [categories, setCategories] = useState(loadedCategories);

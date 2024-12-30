@@ -1,19 +1,18 @@
 import { useFormContext } from 'react-hook-form';
 import { FormInput } from '~/components/form/form-input';
-import type { CreateOperationFormData } from '~/db/models';
+import type { OperationFormData } from '~/db/models';
 
 export function OperationAmount() {
     const {
         register,
         formState: { errors },
-    } = useFormContext<CreateOperationFormData>();
+    } = useFormContext<OperationFormData>();
 
     return (
         <FormInput
             label='Kwota'
             id='amount'
             inputMode='decimal'
-            autoComplete='off'
             error={errors?.amount}
             {...register('amount')}
         />

@@ -6,7 +6,7 @@ import { OperationName } from './operations-form-inputs/operation-name';
 import { OperationAmount } from './operations-form-inputs/operation-amount';
 import { OperationSource } from './operations-form-inputs/operation-source';
 import { OperationCategory } from './operations-form-inputs/operation-category';
-import { createOperationFormParser, type CreateOperationFormData } from '~/db/models';
+import { operationFormParser, type OperationFormData } from '~/db/models';
 import { OperationDate } from './operations-form-inputs/operation-date';
 import { Button } from '~/components/ui/button';
 import { Form } from 'react-router';
@@ -21,12 +21,12 @@ interface OperationsFormProps {
 function OperationsForm({ setOpen }: OperationsFormProps) {
     const form = useForm({
         defaultValues: initialData,
-        resolver: zodResolver(createOperationFormParser),
+        resolver: zodResolver(operationFormParser),
     });
 
     const { submit } = useAwaitedFetcher();
 
-    const onSubmit: SubmitHandler<CreateOperationFormData> = async (data) => {
+    const onSubmit: SubmitHandler<OperationFormData> = async (data) => {
         const formData = toFormData(data);
         console.log(data, formData);
         const { success, message } = await submit(formData, { method: 'POST' });

@@ -1,4 +1,4 @@
-import { createOperationFormParser } from '~/db/models';
+import { operationFormParser } from '~/db/models';
 import { addCategory } from '~/db/services/categories';
 import { addOperation } from '~/db/services/operations';
 import { addSource } from '~/db/services/sources';
@@ -8,7 +8,7 @@ import { promised } from '~/lib/utils/promised';
 export const createOperation: ActionFunction = async ({ request }) => {
     const formData = await request.formData();
     const dataAsObject = Object.fromEntries(formData.entries());
-    const parsedForm = createOperationFormParser.safeParse(dataAsObject);
+    const parsedForm = operationFormParser.safeParse(dataAsObject);
 
     if (!parsedForm.success) {
         return { success: false, message: 'Podano nieprawidłowe dane' };
@@ -20,7 +20,7 @@ export const createOperation: ActionFunction = async ({ request }) => {
 
     // if category is new, insert it into the db
     if (data.categoryId === NEW_OPTION_ID) {
-        const [newCategory, error] = await promised(addCategory, data.categoryName);
+        const [newCategory, error] = await promised(addCategory, { name: data.categoryName });
 
         if (error) {
             return {

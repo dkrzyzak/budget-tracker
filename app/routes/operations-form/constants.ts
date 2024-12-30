@@ -1,7 +1,7 @@
-import type { CreateOperationFormData } from '~/db/models';
+import type { OperationFormData } from '~/db/models';
 import { UNSELECTED_ID } from '~/lib/globals';
 
-export const initialData: CreateOperationFormData = {
+export const initialData: OperationFormData = {
     type: 'expense',
     name: '',
     amount: '',

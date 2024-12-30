@@ -1,10 +1,10 @@
 import { CircleDollarSign, HandCoins } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import type { CreateOperationFormData, OperationType } from '~/db/models';
+import type { OperationFormData, OperationType } from '~/db/models';
 
 function OperationTypeTabs() {
-    const { setValue } = useFormContext<CreateOperationFormData>();
+    const { setValue } = useFormContext<OperationFormData>();
 
     const setOperationType = (operationType: OperationType) => {
         setValue('type', operationType);

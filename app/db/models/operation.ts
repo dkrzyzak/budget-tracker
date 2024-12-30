@@ -14,7 +14,7 @@ export const operationSchema = z.object({
 });
 
 
-export const createOperationFormSchema = operationSchema.extend({
+export const operationFormSchema = operationSchema.extend({
     categoryName: z.string().min(1, 'Pusta nazwa kategorii'), // NOTE: new field
     sourceName: z.string().min(1, 'Pusta nazwa źródła'), // NOTE: new field
 
@@ -38,7 +38,7 @@ export const createOperationFormSchema = operationSchema.extend({
         }),
 });
 
-export const createOperationFormParser = createOperationFormSchema.transform((data) => {
+export const operationFormParser = operationFormSchema.transform((data) => {
     return {
         ...data,
         amount: parseFloat(data.amount.replace(',', '.')),
@@ -47,8 +47,8 @@ export const createOperationFormParser = createOperationFormSchema.transform((da
 });
 
 export type Operation = z.infer<typeof operationSchema>;
-export type CreateOperationFormData = z.infer<typeof createOperationFormSchema>;
-export type OperationFormDataParsed = z.infer<typeof createOperationFormParser>;
+export type OperationFormData = z.infer<typeof operationFormSchema>;
+export type OperationFormDataParsed = z.infer<typeof operationFormParser>;
 
 export type OperationDto = Dto<Operation>;
 export type OperationType = Operation['type'];

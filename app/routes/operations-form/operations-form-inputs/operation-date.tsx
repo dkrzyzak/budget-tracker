@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form';
 import { DatePicker } from '~/components/form/date-picker';
 import FormField from '~/components/form/form-field';
-import type { CreateOperationFormData } from '~/db/models';
+import type { OperationFormData } from '~/db/models';
 
 export function OperationDate() {
-    const { setValue, watch } = useFormContext<CreateOperationFormData>();
+    const { setValue, watch } = useFormContext<OperationFormData>();
     const date = watch('operationDate');
 
     const onChange = (date: Date) => {

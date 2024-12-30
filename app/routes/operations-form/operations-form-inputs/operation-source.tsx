@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { type CreateOperationFormData } from '~/db/models';
+import { type OperationFormData } from '~/db/models';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
@@ -9,7 +9,7 @@ import FormField from '~/components/form/form-field';
 
 export function OperationSource() {
     const { sources: loadedSources } = useLoaderData<LoaderData>();
-    const { watch, setValue, formState: { errors } } = useFormContext<CreateOperationFormData>();
+    const { watch, setValue, formState: { errors } } = useFormContext<OperationFormData>();
     const selectedSourceId = watch('sourceId');
     const operationType = watch('type');
 
