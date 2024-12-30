@@ -1,6 +1,6 @@
 import type { CategoryFormData } from '~/db/models';
 
-export const initialData: CategoryFormData = {
+export const emptyCategoryData: CategoryFormData = {
     name: '',
     color: '',
     icon: '',

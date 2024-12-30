@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export function toFormData(object: Record<string, any>) {
     const formData = new FormData();
 
@@ -6,4 +8,8 @@ export function toFormData(object: Record<string, any>) {
     }
 
     return formData;
+}
+
+export function preprocessNull<S extends z.ZodTypeAny>(schema: S) {
+    return z.preprocess((val) => (!val || val === 'null' ? null : val), schema);
 }

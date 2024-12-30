@@ -29,7 +29,7 @@ export type ResponsiveModalClassnames = {
 type ResponsiveModalProps = PropsWithChildren<{
     isOpen: boolean;
     setOpen: (open: boolean) => void;
-    trigger: React.ReactNode;
+    trigger?: React.ReactNode;
     title?: string;
     description?: string;
     classNames?: ResponsiveModalClassnames;
@@ -49,7 +49,7 @@ function ResponsiveModal({
     if (isDesktop) {
         return (
             <Dialog open={isOpen} onOpenChange={setOpen}>
-                <DialogTrigger asChild>{trigger}</DialogTrigger>
+                {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
                 <DialogContent className={classNames?.contentDesktop}>
                     <DialogHeader>
                         {title ? (
@@ -76,7 +76,7 @@ function ResponsiveModal({
 
     return (
         <Drawer open={isOpen} onOpenChange={setOpen}>
-            <DrawerTrigger asChild>{trigger}</DrawerTrigger>
+            {trigger && <DrawerTrigger asChild>{trigger}</DrawerTrigger>}
             <DrawerContent className={classNames?.contentMobile}>
                 <DrawerHeader>
                     {title ? (

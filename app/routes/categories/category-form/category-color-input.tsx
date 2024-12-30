@@ -14,7 +14,7 @@ function CategoryColorInput() {
     return (
         <div>
         <FormField label="Kolor" id="color" error={errors.color}>
-            <ColorPicker targetLabel={color ? color : 'Wybierz kolor'} color={color} onChange={onChange} />
+            <ColorPicker targetLabel={color ? color : 'Wybierz kolor'} color={color ?? ''} onChange={onChange} />
         </FormField>
         </div>
     );

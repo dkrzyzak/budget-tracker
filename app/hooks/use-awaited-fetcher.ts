@@ -6,10 +6,7 @@ export function useAwaitedFetcher<AdditionalData = {}>() {
     const fetcher = useFetcher<Data>();
 
     const pendingSubmissionRef = useRef(false);
-    const promiseRef = useRef<{
-        resolve: (value: Data) => void;
-        reject: (reason?: Data) => void;
-    } | null>(null);
+    const promiseRef = useRef<{ resolve: (value: Data) => void } | null>(null);
 
     useEffect(() => {
         // prettier-ignore
@@ -23,7 +20,7 @@ export function useAwaitedFetcher<AdditionalData = {}>() {
     useEffect(() => {
         // prettier-ignore
         if (pendingSubmissionRef.current && !fetcher.data && fetcher.state === 'idle' && promiseRef.current) {
-            promiseRef.current.reject({ success: false, message: 'Fetcher zrobił reject' } as Data);
+            promiseRef.current.resolve({ success: false, message: 'Akcja nie zwróciła danych' } as Data);
             pendingSubmissionRef.current = false;
             promiseRef.current = null;
         }
@@ -31,9 +28,9 @@ export function useAwaitedFetcher<AdditionalData = {}>() {
 
     const submit = useCallback(
         (...args: Parameters<typeof fetcher.submit>) => {
-            return new Promise<Data>((resolve, reject) => {
+            return new Promise<Data>((resolve) => {
                 pendingSubmissionRef.current = true;
-                promiseRef.current = { resolve, reject };
+                promiseRef.current = { resolve };
                 fetcher.submit(...args);
             });
         },

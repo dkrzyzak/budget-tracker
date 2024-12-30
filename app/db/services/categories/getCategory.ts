@@ -14,7 +14,7 @@ export async function getCategoriesByUsage() {
         FROM "categories" c
         LEFT JOIN "operations" o ON c.id = o."categoryId"
         GROUP BY c.id, c.name, c.color, c.icon
-        ORDER BY "frequency" DESC;
+        ORDER BY "frequency" DESC, c.name ASC;
     `);
 
     return data.rows;
