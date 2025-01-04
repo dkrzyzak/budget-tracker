@@ -5,7 +5,7 @@ interface IconProps {
     className?: string;
 }
 
-function Icon({ svgSource, color, size = '2em', className }: IconProps) {
+function SvgIcon({ svgSource, color, size = '2em', className }: IconProps) {
     if (!svgSource) {
         return null;
     }
@@ -19,4 +19,4 @@ function Icon({ svgSource, color, size = '2em', className }: IconProps) {
     );
 }
 
-export default Icon;
+export default SvgIcon;

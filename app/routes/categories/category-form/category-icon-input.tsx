@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 import FormField from '~/components/form/form-field';
 import { TextArea } from '~/components/ui/textarea';
+import SvgIcon from '~/components/icon';
 import type { CategoryFormData } from '~/db/models';
-import Icon from '../categories-list/icon';
 
 function CategoryIconInput() {
     const {
@@ -22,7 +22,7 @@ function CategoryIconInput() {
             {iconValue && (
                 <div className='flex items-center justify-between'>
                     <span>Podgląd ikonki</span>
-                    <Icon svgSource={iconValue} size='100px' color={color} />
+                    <SvgIcon svgSource={iconValue} size='100px' color={color} />
                 </div>
             )}
         </div>

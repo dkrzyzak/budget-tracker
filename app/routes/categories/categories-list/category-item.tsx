@@ -1,5 +1,5 @@
 import type { CategoryDto } from '~/db/models';
-import Icon from './icon';
+import SvgIcon from '~/components/icon';
 import { Button } from '~/components/ui/button';
 import { Pencil, Trash } from 'lucide-react';
 import { useCategoryManagement } from './category-management-context';
@@ -15,7 +15,7 @@ function CategoryItem({ category }: CategoryItemProps) {
         <div className='border p-2 flex justify-between gap-4'>
             <div className='flex items-center gap-2 text-xl'>
                 {category.icon && (
-                    <Icon svgSource={category.icon} color={category.color} />
+                    <SvgIcon svgSource={category.icon} color={category.color} />
                 )}
                 <p className=''>{category.name}</p>
             </div>
