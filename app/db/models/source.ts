@@ -1,13 +1,20 @@
 import { z } from 'zod';
-import type { Dto } from './type-utils';
+import { preprocessNull, preprocessNumber } from '~/lib/utils/zodHelpers';
 
 export const sourceSchema = z.object({
+    id: z.number(),
     name: z.string(),
-    image: z.string().optional(),
+    image: z.string().nullable(),
 });
 
-export type Source = z.infer<typeof sourceSchema>;
+export const sourceFormSchema = sourceSchema.extend({
+    id: preprocessNumber(preprocessNull(z.number().nullable())),
+    name: z.string().min(2, 'Pusta nazwa nie jest dozwolona'),
+});
+
+
+export type SourceFormData = z.infer<typeof sourceFormSchema>;
 
 // QUERY MODELS
-export type SourceDto = Dto<Source>;
+export type SourceDto = z.infer<typeof sourceSchema>;
 export type SourceWithFrequency = Pretty<SourceDto & { frequency: number }>;

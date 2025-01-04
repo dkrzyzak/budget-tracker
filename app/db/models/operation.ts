@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import type { Dto } from './type-utils';
 import { UNSELECTED_ID } from '~/lib/globals';
 import { stripTimeZone } from '~/lib/utils/date';
 
 // clean mapping for a Postgres table
 export const operationSchema = z.object({
+    id: z.number(),
     type: z.enum(['expense', 'income']),
     name: z.string().optional(),
     amount: z.string(), // DECIMAL is "100.00"
@@ -15,6 +15,7 @@ export const operationSchema = z.object({
 
 
 export const operationFormSchema = operationSchema.extend({
+    id: z.number().optional(),
     categoryName: z.string().min(1, 'Pusta nazwa kategorii'), // NOTE: new field
     sourceName: z.string().min(1, 'Pusta nazwa źródła'), // NOTE: new field
 
@@ -46,9 +47,8 @@ export const operationFormParser = operationFormSchema.transform((data) => {
     };
 });
 
-export type Operation = z.infer<typeof operationSchema>;
 export type OperationFormData = z.infer<typeof operationFormSchema>;
 export type OperationFormDataParsed = z.infer<typeof operationFormParser>;
 
-export type OperationDto = Dto<Operation>;
-export type OperationType = Operation['type'];
+export type OperationDto = z.infer<typeof operationSchema>;
+export type OperationType = OperationDto['type'];

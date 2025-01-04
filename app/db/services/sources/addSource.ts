@@ -1,9 +1,9 @@
 import { db } from '~/db/connection.server';
-import type { SourceDto } from '~/db/models';
+import type { SourceDto, SourceFormData } from '~/db/models';
 
-export async function addSource(sourceName: string) {
+export async function addSource(source: SourceFormData) {
     const res = await db
-        .insert({ name: sourceName })
+        .insert({ name: source.name, image: source.image || null })
         .into<SourceDto>('sources')
         .returning('id');
 

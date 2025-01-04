@@ -42,7 +42,11 @@ export const createOperation: ActionFunction = async ({ request }) => {
 
     // if category is new, insert it into the db
     if (data.sourceId === NEW_OPTION_ID) {
-        const [newSource, error] = await promised(addSource, data.sourceName);
+        const [newSource, error] = await promised(addSource, {
+            id: null,
+            name: data.categoryName,
+            image: null,
+        });
 
         if (error) {
             return {

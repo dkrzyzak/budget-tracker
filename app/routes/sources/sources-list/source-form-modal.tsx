@@ -1,7 +1,7 @@
-import CategoryForm, { type FormMode } from '../category-form/category-form';
+import SourceForm, { type FormMode } from '../source-form/source-form';
 import type { ResponsiveModalClassnames } from '~/components/responsive-modal';
 import ResponsiveModal from '~/components/responsive-modal';
-import type { CategoryFormData } from '~/db/models';
+import type { SourceFormData } from '~/db/models';
 
 const classNames: ResponsiveModalClassnames = {
     contentDesktop: 'sm:max-w-[425px]',
@@ -10,20 +10,20 @@ const classNames: ResponsiveModalClassnames = {
     descriptionMobile: 'text-center my-2',
 };
 
-export type CategoryFormModalProps = {
+export type SourceFormModalProps = {
     isOpen: boolean;
     setOpen: (open: boolean) => void;
     formMode: FormMode;
-    defaultValues: CategoryFormData;
+    defaultValues: SourceFormData;
 };
 
-function CategoryFormModal({
+function SourceFormModal({
     isOpen,
     setOpen,
     formMode,
     defaultValues,
-}: CategoryFormModalProps) {
-    const title = formMode === 'create' ? 'Dodaj kategorię' : 'Edytuj kategorię';
+}: SourceFormModalProps) {
+    const title = formMode === 'create' ? 'Dodaj źródło' : 'Edytuj źródło';
 
     const description =
         formMode === 'create'
@@ -38,7 +38,7 @@ function CategoryFormModal({
             description={description}
             classNames={classNames}
         >
-            <CategoryForm
+            <SourceForm
                 defaultValues={defaultValues}
                 formMode={formMode}
                 setOpen={setOpen}
@@ -47,4 +47,4 @@ function CategoryFormModal({
     );
 }
 
-export default CategoryFormModal;
+export default SourceFormModal;
