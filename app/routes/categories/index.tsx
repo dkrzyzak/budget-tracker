@@ -4,7 +4,6 @@ import CategoriesList from './categories-list/categories-list';
 import { createCategoryAction } from '~/actions/categories/create.server';
 import { updateCategoryAction } from '~/actions/categories/update.server';
 import { deleteCategoryAction } from '~/actions/categories/delete.server';
-import { CategoryContextProvider } from './categories-list/category-management-context';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Kategorie | Billans' }];
@@ -40,9 +39,7 @@ export default function CategoriesPage() {
     return (
         <div className='grid my-16'>
             <h1 className='text-3xl mb-12'>Kategorie</h1>
-            <CategoryContextProvider>
-                <CategoriesList />
-            </CategoryContextProvider>
+            <CategoriesList />
         </div>
     );
 }

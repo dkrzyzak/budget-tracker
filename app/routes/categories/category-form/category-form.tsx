@@ -8,18 +8,14 @@ import { toast } from 'sonner';
 import { FormInput } from '~/components/form/form-input';
 import CategoryColorInput from './category-color-input';
 import CategoryIconInput from './category-icon-input';
+import { useItemsForm } from '~/context/items-manager';
 
-export type FormMode = 'create' | 'edit';
+function CategoryForm() {
+    const { formDefaultValues, formMode, setModalOpen } =
+        useItemsForm<CategoryFormData>();
 
-interface CategoryFormProps {
-    defaultValues: CategoryFormData;
-    formMode: FormMode;
-    setOpen: (open: boolean) => void;
-}
-
-function CategoryForm({ defaultValues, formMode, setOpen }: CategoryFormProps) {
     const form = useForm<CategoryFormData>({
-        defaultValues,
+        defaultValues: formDefaultValues,
         resolver: zodResolver(categoryFormSchema),
     });
 
@@ -34,7 +30,7 @@ function CategoryForm({ defaultValues, formMode, setOpen }: CategoryFormProps) {
             return toast.error(message);
         }
 
-        setOpen(false);
+        setModalOpen(false);
         toast.success(message);
     };
 

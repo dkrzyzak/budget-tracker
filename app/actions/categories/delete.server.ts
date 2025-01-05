@@ -6,6 +6,7 @@ export const deleteCategoryAction: ActionFunction = async ({ request }) => {
     const categoryId = formData.get('categoryId');
 
     if (!categoryId || typeof categoryId !== 'string') {
+        console.log('categoryId: ', categoryId);
         return { success: false, message: 'Przekazano złe dane' };
     }
 

@@ -2,14 +2,15 @@ import type { CategoryDto } from '~/db/models';
 import SvgIcon from '~/components/icon';
 import { Button } from '~/components/ui/button';
 import { Pencil, Trash } from 'lucide-react';
-import { useCategoryManagement } from './category-management-context';
+import { useItemsDeletion, useItemsForm } from '~/context/items-manager';
 
 interface CategoryItemProps {
     category: CategoryDto;
 }
 
 function CategoryItem({ category }: CategoryItemProps) {
-    const { editCategory, deleteCategory } = useCategoryManagement();
+    const { editItem } = useItemsForm<CategoryDto>();
+    const { deleteItem } = useItemsDeletion<CategoryDto>();
 
     return (
         <div className='border p-2 flex justify-between gap-4'>
@@ -20,10 +21,10 @@ function CategoryItem({ category }: CategoryItemProps) {
                 <p className=''>{category.name}</p>
             </div>
             <div className='flex gap-2'>
-                <Button variant='outline' onClick={() => editCategory(category)}>
+                <Button variant='outline' onClick={() => editItem(category)}>
                     <Pencil />
                 </Button>
-                <Button variant='destructive' onClick={() => deleteCategory(category)}>
+                <Button variant='destructive' onClick={() => deleteItem(category)}>
                     <Trash />
                 </Button>
             </div>
