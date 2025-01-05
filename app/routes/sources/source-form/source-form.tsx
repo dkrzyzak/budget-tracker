@@ -6,18 +6,16 @@ import { Form } from 'react-router';
 import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
 import { toast } from 'sonner';
 import { FormInput } from '~/components/form/form-input';
+import { useItemsForm } from '~/context/items-manager';
 
 export type FormMode = 'create' | 'edit';
 
-interface SourceFormProps {
-    defaultValues: SourceFormData;
-    formMode: FormMode;
-    setOpen: (open: boolean) => void;
-}
 
-function SourceForm({ defaultValues, formMode, setOpen }: SourceFormProps) {
+function SourceForm() {
+    const { formDefaultValues, formMode, setModalOpen } = useItemsForm<SourceFormData>();
+
     const form = useForm<SourceFormData>({
-        defaultValues,
+        defaultValues: formDefaultValues,
         resolver: zodResolver(sourceFormSchema),
     });
 
@@ -32,7 +30,7 @@ function SourceForm({ defaultValues, formMode, setOpen }: SourceFormProps) {
             return toast.error(message);
         }
 
-        setOpen(false);
+        setModalOpen(false);
         toast.success(message);
     };
 

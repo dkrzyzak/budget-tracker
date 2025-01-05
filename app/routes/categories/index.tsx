@@ -1,6 +1,6 @@
 import { type MetaFunction } from 'react-router';
 import { getCategoriesByUsage } from '~/db/services/categories';
-import CategoriesList from './categories-list/categories-list';
+import { CategoriesList } from './categories-list/categories-list';
 import { createCategoryAction } from '~/actions/categories/create.server';
 import { updateCategoryAction } from '~/actions/categories/update.server';
 import { deleteCategoryAction } from '~/actions/categories/delete.server';

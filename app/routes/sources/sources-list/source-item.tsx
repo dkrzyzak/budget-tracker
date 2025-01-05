@@ -1,14 +1,15 @@
 import type { SourceDto } from '~/db/models';
 import { Button } from '~/components/ui/button';
 import { Pencil, Trash } from 'lucide-react';
-import { useSourceManagement } from './source-management-context';
+import { useItemsDeletion, useItemsForm } from '~/context/items-manager';
 
 interface SourceItemProps {
     source: SourceDto;
 }
 
 function SourceItem({ source }: SourceItemProps) {
-    const { editSource, deleteSource } = useSourceManagement();
+    const { editItem } = useItemsForm<SourceDto>();
+    const { deleteItem } = useItemsDeletion<SourceDto>();
 
     return (
         <div className='border p-2 flex justify-between gap-4'>
@@ -16,10 +17,10 @@ function SourceItem({ source }: SourceItemProps) {
                 <p className=''>{source.name}</p>
             </div>
             <div className='flex gap-2'>
-                <Button variant='outline' onClick={() => editSource(source)}>
+                <Button variant='outline' onClick={() => editItem(source)}>
                     <Pencil />
                 </Button>
-                <Button variant='destructive' onClick={() => deleteSource(source)}>
+                <Button variant='destructive' onClick={() => deleteItem(source)}>
                     <Trash />
                 </Button>
             </div>

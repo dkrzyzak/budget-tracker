@@ -16,7 +16,7 @@ import {
 import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
 import { toast } from 'sonner';
 
-function CategoriesList() {
+export function CategoriesList() {
     const { categories } = useLoaderData<LoaderData>();
     const itemMapper = useCallback(
         (category: CategoryDto) => <CategoryItem key={category.id} category={category} />,
@@ -49,26 +49,23 @@ function CategoriesList() {
     );
 
     return (
-        <div>
-            <ItemsManager items={categories} newItemFormValues={emptyCategoryData}>
-                <ListOutlet<CategoryDto> withAddButton itemMapper={itemMapper} className='grid gap-2' />
+        <ItemsManager items={categories} newItemFormValues={emptyCategoryData}>
+            <ListOutlet<CategoryDto>
+                withAddButton
+                itemMapper={itemMapper}
+                className='grid gap-2'
+            />
 
-                <ItemFormModal
-                    titleCreate='Dodaj kategorię'
-                    titleEdit='Edytuj kategorię'
-                    descriptionCreate='Czego jeszcze brakuje? Dodawaj śmiało ;-)'
-                    descriptionEdit='Literówka? Brzydki kolor? Bez przypału, wszystko można zmienić ;-)'
-                >
-                    <CategoryForm />
-                </ItemFormModal>
+            <ItemFormModal
+                titleCreate='Dodaj kategorię'
+                titleEdit='Edytuj kategorię'
+                descriptionCreate='Czego jeszcze brakuje? Dodawaj śmiało ;-)'
+                descriptionEdit='Literówka? Brzydki kolor? Bez przypału, wszystko można zmienić ;-)'
+            >
+                <CategoryForm />
+            </ItemFormModal>
 
-                <DeleteItemDialog<CategoryDto>
-                    onDelete={onDelete}
-                    message={renderMessage}
-                />
-            </ItemsManager>
-        </div>
+            <DeleteItemDialog<CategoryDto> onDelete={onDelete} message={renderMessage} />
+        </ItemsManager>
     );
 }
-
-export default CategoriesList;
