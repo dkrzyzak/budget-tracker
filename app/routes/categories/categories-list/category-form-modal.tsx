@@ -1,7 +1,8 @@
 import CategoryForm, { type FormMode } from '../category-form/category-form';
-import type { ResponsiveModalClassnames } from '~/components/responsive-modal';
-import ResponsiveModal from '~/components/responsive-modal';
-import type { CategoryFormData } from '~/db/models';
+import {
+    ResponsiveModal,
+    type ResponsiveModalClassnames,
+} from '~/components/responsive-modal';
 
 const classNames: ResponsiveModalClassnames = {
     contentDesktop: 'sm:max-w-[425px]',

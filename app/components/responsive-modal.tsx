@@ -35,7 +35,7 @@ type ResponsiveModalProps = PropsWithChildren<{
     classNames?: ResponsiveModalClassnames;
 }>;
 
-function ResponsiveModal({
+export function ResponsiveModal({
     isOpen,
     setOpen,
     trigger,
@@ -101,5 +101,3 @@ function ResponsiveModal({
         </Drawer>
     );
 }
-
-export default ResponsiveModal;

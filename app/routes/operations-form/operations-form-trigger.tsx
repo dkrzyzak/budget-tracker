@@ -1,7 +1,9 @@
 import { useState, type PropsWithChildren } from 'react';
 import OperationsForm from './operations-form';
-import type { ResponsiveModalClassnames } from '~/components/responsive-modal';
-import ResponsiveModal from '~/components/responsive-modal';
+import {
+    ResponsiveModal,
+    type ResponsiveModalClassnames,
+} from '~/components/responsive-modal';
 
 const classNames: ResponsiveModalClassnames = {
     contentDesktop: 'sm:max-w-[425px]',

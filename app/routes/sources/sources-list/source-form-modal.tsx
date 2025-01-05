@@ -1,6 +1,8 @@
 import SourceForm, { type FormMode } from '../source-form/source-form';
-import type { ResponsiveModalClassnames } from '~/components/responsive-modal';
-import ResponsiveModal from '~/components/responsive-modal';
+import {
+    ResponsiveModal,
+    type ResponsiveModalClassnames,
+} from '~/components/responsive-modal';
 import type { SourceFormData } from '~/db/models';
 
 const classNames: ResponsiveModalClassnames = {
