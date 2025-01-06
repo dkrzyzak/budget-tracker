@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { UNSELECTED_ID } from '~/lib/globals';
 import { stripTimeZone } from '~/lib/utils/date';
+import { preprocessNull, preprocessNumber } from '~/lib/utils/zodHelpers';
 
 // clean mapping for a Postgres table
 export const operationSchema = z.object({
@@ -13,9 +14,8 @@ export const operationSchema = z.object({
     sourceId: z.number(),
 });
 
-
 export const operationFormSchema = operationSchema.extend({
-    id: z.number().optional(),
+    id: preprocessNumber(preprocessNull(z.number().nullable())),
     categoryName: z.string().min(1, 'Pusta nazwa kategorii'), // NOTE: new field
     sourceName: z.string().min(1, 'Pusta nazwa źródła'), // NOTE: new field
 
@@ -26,17 +26,19 @@ export const operationFormSchema = operationSchema.extend({
 
     operationDate: z.union([z.date(), z.string().transform((date) => new Date(date))]),
 
-    categoryId: z
-        .union([z.number(), z.string().transform((str) => parseInt(str))])
-        .refine((categoryId) => categoryId !== UNSELECTED_ID, {
+    categoryId: preprocessNumber(z.number()).refine(
+        (categoryId) => categoryId !== UNSELECTED_ID,
+        {
             message: 'Wybierz kategorię',
-        }),
+        }
+    ),
 
-    sourceId: z
-        .union([z.number(), z.string().transform((str) => parseInt(str))])
-        .refine((sourceId) => sourceId !== UNSELECTED_ID, {
+    sourceId: preprocessNumber(z.number()).refine(
+        (sourceId) => sourceId !== UNSELECTED_ID,
+        {
             message: 'Wybierz źródło',
-        }),
+        }
+    ),
 });
 
 export const operationFormParser = operationFormSchema.transform((data) => {

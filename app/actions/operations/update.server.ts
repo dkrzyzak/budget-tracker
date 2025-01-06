@@ -1,27 +1,28 @@
-import { operationFormParser } from '~/db/models';
+import { operationFormSchema } from '~/db/models';
 import { addCategory } from '~/db/services/categories';
-import { addOperation } from '~/db/services/operations';
+import { updateOperation } from '~/db/services/operations';
 import { addSource } from '~/db/services/sources';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { promised } from '~/lib/utils/promised';
 
-export const createOperationAction: ActionFunction = async ({ request }) => {
-    const formData = await request.formData();
-    const dataAsObject = Object.fromEntries(formData.entries());
-    const parsedForm = operationFormParser.safeParse(dataAsObject);
+export const updateOperationAction: ActionFunction = async ({ request }) => {
+    const formDataObject = Object.fromEntries((await request.formData()).entries());
+    const parsedForm = operationFormSchema.safeParse(formDataObject);
 
     if (!parsedForm.success) {
-        return { success: false, message: 'Podano nieprawidłowe dane' };
+        console.log('errors: ', parsedForm.error.issues);
+        return { success: false, message: 'Przekazano złe dane' };
     }
 
-    const { data } = parsedForm;
+    const { data: formData } = parsedForm;
 
-    let categoryId = data.categoryId;
+    let categoryId = formData.categoryId;
 
     // if category is new, insert it into the db
-    if (data.categoryId === NEW_OPTION_ID) {
+    if (formData.categoryId === NEW_OPTION_ID) {
+        // TODO: separate function to add category only with name
         const [newCategory, error] = await promised(addCategory, {
-            name: data.categoryName,
+            name: formData.categoryName,
             id: null,
             color: null,
             icon: null,
@@ -38,13 +39,14 @@ export const createOperationAction: ActionFunction = async ({ request }) => {
         categoryId = newCategory.id;
     }
 
-    let sourceId = data.sourceId;
+    let sourceId = formData.sourceId;
 
     // if category is new, insert it into the db
-    if (data.sourceId === NEW_OPTION_ID) {
+    if (formData.sourceId === NEW_OPTION_ID) {
+        // TODO: separate function to add source only with name
         const [newSource, error] = await promised(addSource, {
             id: null,
-            name: data.sourceName,
+            name: formData.sourceName,
             image: null,
         });
 
@@ -59,18 +61,18 @@ export const createOperationAction: ActionFunction = async ({ request }) => {
         sourceId = newSource.id;
     }
 
-    const [_changedRows, error] = await promised(addOperation, {
-        ...data,
-        sourceId,
+    const [_changedRows, error] = await promised(updateOperation, {
+        ...formData,
         categoryId,
+        sourceId,
     });
 
     if (error) {
         return {
             success: false,
-            message: `Wystąpił problem podczas dodawania nowej operacji. Komunikat błędu: ${error.message}`,
+            message: `Wystąpił problem podczas edytowania operacji. Komunikat błędu: ${error.message}`,
         };
     }
 
-    return { success: true, message: 'Dodano nowy wpis!' };
+    return { success: true, message: 'Zapisano zmiany!' };
 };

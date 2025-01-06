@@ -1,14 +1,8 @@
 import { Link, type MetaFunction } from 'react-router';
-
-import { createOperation } from '~/actions/operations/create.server';
 import { Button } from '~/components/ui/button';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Billans' }, { name: 'description', content: 'Na co to poszło?' }];
-};
-
-export const action: ActionFunction = async (args) => {
-    return await createOperation(args);
 };
 
 export default function FirstScreen() {

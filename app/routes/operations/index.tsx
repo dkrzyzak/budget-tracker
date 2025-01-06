@@ -4,6 +4,9 @@ import OperationsList from './operations-list/operations-list';
 import { promised } from '~/lib/utils';
 import { getCategoriesByFrequency } from '~/db/services/categories';
 import { getSourcesByFrequency } from '~/db/services/sources';
+import { createOperationAction } from '~/actions/operations/create.server';
+import { deleteOperationAction } from '~/actions/operations/delete.server';
+import { updateOperationAction } from '~/actions/operations/update.server';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Operacje | Billans' }];
@@ -22,6 +25,28 @@ export const loader = async () => {
 };
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;
+
+export const action: ActionFunction = (args) => {
+    const method = args.request.method;
+
+    switch (method) {
+        case 'POST': {
+            return createOperationAction(args);
+        }
+
+        case 'PUT': {
+            return updateOperationAction(args);
+        }
+
+        case 'DELETE': {
+            return deleteOperationAction(args);
+        }
+
+        default: {
+            return Promise.resolve({ success: false, message: `Nie obsługujemy tej metody: ${method}}` })
+        }
+    } 
+}
 
 export default function OperationsPage() {
     return (

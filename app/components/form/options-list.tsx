@@ -38,7 +38,7 @@ export function OptionsList<Option extends OptionBase>({
 
     const filteredOptions = options.filter((option) =>
         option.name.toLowerCase().includes(optionName.toLowerCase().trim())
-    );
+    ).slice(0, 6);
 
     const onAddOption = () => {
         addNewOption(optionName);

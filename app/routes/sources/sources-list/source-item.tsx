@@ -10,6 +10,9 @@ interface SourceItemProps {
 
 function SourceItem({ source }: SourceItemProps) {
     const { editItem } = useItemsForm<SourceDto>();
+
+    // TODO: block deletion if there is an operation that uses this source (and point to that operation)
+    // TODO: same for categories
     const { deleteItem } = useItemsDeletion<SourceDto>();
 
     return (

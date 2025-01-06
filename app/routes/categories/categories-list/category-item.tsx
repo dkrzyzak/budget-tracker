@@ -15,11 +15,11 @@ function CategoryItem({ category }: CategoryItemProps) {
 
     return (
         <div className='border p-2 flex justify-between gap-4'>
-            <div className='flex items-center gap-2 text-xl'>
+            <div className='flex items-center gap-4 text-xl'>
                 {category.icon && (
                     <SvgIcon svgSource={category.icon} color={category.color} />
                 )}
-                <p className=''>{category.name}</p>
+                <p>{category.name}</p>
             </div>
             <div className='flex gap-2'>
                 <Button variant='outline' onClick={() => editItem(category)}>

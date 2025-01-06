@@ -1,6 +1,6 @@
 import { type MetaFunction } from 'react-router';
 
-import { createOperation } from '~/actions/operations/create.server';
+import { createOperationAction } from '~/actions/operations/create.server';
 import { Button } from '~/components/ui/button';
 import { ItemsFormContextProvider } from '~/context/items-manager/create-update/items-form-context';
 import { getCategoriesByFrequency } from '~/db/services/categories';
@@ -35,7 +35,7 @@ export const loader = async () => {
 export type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export const action: ActionFunction = async (args) => {
-    return await createOperation(args);
+    return await createOperationAction(args);
 };
 
 export default function Dashboard() {
