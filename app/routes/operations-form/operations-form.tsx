@@ -4,11 +4,11 @@ import { Form } from 'react-router';
 import { toast } from 'sonner';
 
 import { Button } from '~/components/ui/button';
+import { useItemsForm } from '~/context/items-manager';
 import { operationFormParser, type OperationFormData } from '~/db/models';
 import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
 import { toFormData } from '~/lib/utils/form-data';
 
-import { initialData } from './constants';
 import { OperationAmount } from './operations-form-inputs/operation-amount';
 import { OperationCategory } from './operations-form-inputs/operation-category';
 import { OperationDate } from './operations-form-inputs/operation-date';
@@ -16,13 +16,12 @@ import { OperationName } from './operations-form-inputs/operation-name';
 import { OperationSource } from './operations-form-inputs/operation-source';
 import OperationTypeTabs from './operations-form-inputs/operation-type';
 
-interface OperationsFormProps {
-    setOpen: (open: boolean) => void;
-}
+export function OperationsForm() {
+    const { formDefaultValues, formMode, setModalOpen } =
+        useItemsForm<OperationFormData>();
 
-function OperationsForm({ setOpen }: OperationsFormProps) {
     const form = useForm({
-        defaultValues: initialData,
+        defaultValues: formDefaultValues,
         resolver: zodResolver(operationFormParser),
     });
 
@@ -30,14 +29,15 @@ function OperationsForm({ setOpen }: OperationsFormProps) {
 
     const onSubmit: SubmitHandler<OperationFormData> = async (data) => {
         const formData = toFormData(data);
-        console.log(data, formData);
-        const { success, message } = await submit(formData, { method: 'POST' });
+        const { success, message } = await submit(formData, {
+            method: formMode === 'create' ? 'POST' : 'PUT',
+        });
 
         if (!success) {
             return toast.error(message);
         }
 
-        setOpen(false);
+        setModalOpen(false);
         toast.success(message);
     };
 
@@ -64,5 +64,3 @@ function OperationsForm({ setOpen }: OperationsFormProps) {
         </FormProvider>
     );
 }
-
-export default OperationsForm;

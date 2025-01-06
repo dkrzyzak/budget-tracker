@@ -8,7 +8,7 @@ export async function getCategories() {
     return data;
 }
 
-export async function getCategoriesByUsage() {
+export async function getCategoriesByFrequency() {
     const data = await db.raw<QueryResult<CategoryWithFrequency>>(`
         SELECT c.id, c.name, c.color, c.icon, COUNT(o.id)::INTEGER as "frequency"
         FROM "categories" c

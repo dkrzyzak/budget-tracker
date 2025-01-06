@@ -3,18 +3,19 @@ import { type MetaFunction } from 'react-router';
 import { createCategoryAction } from '~/actions/categories/create.server';
 import { deleteCategoryAction } from '~/actions/categories/delete.server';
 import { updateCategoryAction } from '~/actions/categories/update.server';
-import { getCategoriesByUsage } from '~/db/services/categories';
+import { getCategoriesByFrequency } from '~/db/services/categories';
 
 import { CategoriesList } from './categories-list/categories-list';
+import { promised } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Kategorie | Billans' }];
 };
 
 export const loader = async () => {
-    const categories = await getCategoriesByUsage();
+    const [categories, categoriesError] = await promised(getCategoriesByFrequency);
 
-    return { categories };
+    return { categories: categoriesError ? [] : categories };
 };
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;

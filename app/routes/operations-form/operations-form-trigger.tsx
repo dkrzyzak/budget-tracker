@@ -1,34 +1,17 @@
-import { useState, type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
+import { ItemFormModal } from '~/context/items-manager';
+import { OperationsForm } from './operations-form';
 
-import {
-    ResponsiveModal,
-    type ResponsiveModalClassnames,
-} from '~/components/responsive-modal';
-
-import OperationsForm from './operations-form';
-
-const classNames: ResponsiveModalClassnames = {
-    contentDesktop: 'sm:max-w-[425px]',
-    contentMobile: 'px-8 pb-8',
-    titleMobile: 'text-center mt-4',
-    descriptionMobile: 'text-center my-2',
-};
-
-function OperationsFormTrigger({ children }: PropsWithChildren) {
-    const [isOpen, setOpen] = useState(false);
-
+export function OperationsFormTrigger({ children }: PropsWithChildren) {
     return (
-        <ResponsiveModal
-            isOpen={isOpen}
-            setOpen={setOpen}
+        <ItemFormModal
+            titleCreate='Dodaj wpis'
+            titleEdit='Edytuj wpis'
+            descriptionCreate='Na co poszło tym razem? A może to dzień wypłaty?'
+            descriptionEdit='Literówka? Brzydki kolor? Bez przypału, wszystko można zmienić ;-)'
             trigger={children}
-            title='Dodaj wpis'
-            description='Na co poszło tym razem? A może to dzień wypłaty?'
-            classNames={classNames}
         >
-            <OperationsForm setOpen={setOpen} />
-        </ResponsiveModal>
+            <OperationsForm />
+        </ItemFormModal>
     );
 }
-
-export default OperationsFormTrigger;

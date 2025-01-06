@@ -2,18 +2,20 @@ import { type MetaFunction } from 'react-router';
 
 import { createOperation } from '~/actions/operations/create.server';
 import { Button } from '~/components/ui/button';
-import { getCategoriesByUsage } from '~/db/services/categories';
+import { ItemsFormContextProvider } from '~/context/items-manager/create-update/items-form-context';
+import { getCategoriesByFrequency } from '~/db/services/categories';
 import { getSourcesByFrequency } from '~/db/services/sources/getSource';
 import { promised } from '~/lib/utils';
 
-import OperationsFormTrigger from '../operations-form/operations-form-trigger';
+import { OperationsFormTrigger } from '../operations-form/operations-form-trigger';
+import { initialData } from '../operations-form/constants';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Strona główna | Billans' }];
 };
 
 export const loader = async () => {
-    const [categories, categoriesError] = await promised(getCategoriesByUsage);
+    const [categories, categoriesError] = await promised(getCategoriesByFrequency);
     const [sources, sourcesError] = await promised(getSourcesByFrequency);
 
     if (categoriesError) {
@@ -39,9 +41,11 @@ export const action: ActionFunction = async (args) => {
 export default function Dashboard() {
     return (
         <div>
-            <OperationsFormTrigger>
-                <Button variant='outline'>Dodaj wpis</Button>
-            </OperationsFormTrigger>
+            <ItemsFormContextProvider newItemFormValues={initialData}>
+                <OperationsFormTrigger>
+                    <Button variant='outline'>Dodaj wpis</Button>
+                </OperationsFormTrigger>
+            </ItemsFormContextProvider>
         </div>
     );
 }

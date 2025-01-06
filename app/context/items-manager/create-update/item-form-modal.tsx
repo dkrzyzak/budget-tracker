@@ -14,6 +14,7 @@ const classNames: ResponsiveModalClassnames = {
 
 export type ItemFormModalProps = {
     children?: ReactNode;
+    trigger?: ReactNode;
     titleCreate?: string;
     titleEdit?: string;
     descriptionCreate?: string;
@@ -22,6 +23,7 @@ export type ItemFormModalProps = {
 
 export function ItemFormModal({
     children,
+    trigger,
     titleCreate,
     titleEdit,
     descriptionCreate,
@@ -39,6 +41,7 @@ export function ItemFormModal({
             title={title}
             description={description}
             classNames={classNames}
+            trigger={trigger}
         >
             {children}
         </ResponsiveModal>
