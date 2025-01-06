@@ -1,4 +1,7 @@
 import { type PropsWithChildren } from 'react';
+
+import { useMediaQuery } from '~/hooks/use-media-query';
+
 import {
     Dialog,
     DialogContent,
@@ -15,7 +18,6 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from './ui/drawer';
-import { useMediaQuery } from '~/hooks/use-media-query';
 
 export type ResponsiveModalClassnames = {
     contentMobile?: string;

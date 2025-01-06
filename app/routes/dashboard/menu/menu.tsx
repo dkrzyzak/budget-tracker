@@ -1,8 +1,10 @@
+import { Wallet } from 'lucide-react';
+import { Link } from 'react-router';
+
 import { useMediaQuery } from '~/hooks/use-media-query';
+
 import { DesktopMenu } from './menu-desktop';
 import { MobileMenu } from './menu-mobile';
-import { Link } from 'react-router';
-import { Wallet } from 'lucide-react';
 
 export function Menu() {
     const isDesktop = useMediaQuery('(min-width: 768px)');

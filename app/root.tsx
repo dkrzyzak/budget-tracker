@@ -8,12 +8,13 @@ import {
     type LoaderFunctionArgs,
     ScrollRestoration,
 } from 'react-router';
-import { Toaster } from '~/components/ui/sonner';
-import type { Route } from './+types/root';
-import { ThemeProvider } from './context/ThemeContext';
-import { parseThemeCookie } from './actions/theme';
 
+import { Toaster } from '~/components/ui/sonner';
+
+import type { Route } from './+types/root';
+import { parseThemeCookie } from './actions/theme';
 import stylesheet from './app.css?url';
+import { ThemeProvider } from './context/ThemeContext';
 
 export const links: Route.LinksFunction = () => [
     {

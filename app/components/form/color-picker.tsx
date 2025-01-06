@@ -1,7 +1,7 @@
-import { HexColorPicker } from 'react-colorful';
-import { Popover, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
 import { PopoverContent } from '@radix-ui/react-popover';
+import { HexColorPicker } from 'react-colorful';
+import { Button } from '../ui/button';
+import { Popover, PopoverTrigger } from '../ui/popover';
 
 interface ColorPickerProps {
     targetLabel?: string;

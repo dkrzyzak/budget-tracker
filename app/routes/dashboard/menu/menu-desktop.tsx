@@ -1,6 +1,6 @@
 import { NavLink, type NavLinkProps } from 'react-router';
-import { menuLinks } from './constants';
 import { cn } from '~/lib/utils';
+import { menuLinks } from './constants';
 
 function DesktopMenuItem(props: NavLinkProps) {
     return (

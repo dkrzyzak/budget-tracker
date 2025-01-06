@@ -1,10 +1,12 @@
 import { type MetaFunction } from 'react-router';
-import { Button } from '~/components/ui/button';
-import OperationsFormTrigger from '../operations-form/operations-form-trigger';
-import { getCategoriesByUsage } from '~/db/services/categories';
-import { promised } from '~/lib/utils';
-import { getSourcesByFrequency } from '~/db/services/sources/getSource';
+
 import { createOperation } from '~/actions/operations/create.server';
+import { Button } from '~/components/ui/button';
+import { getCategoriesByUsage } from '~/db/services/categories';
+import { getSourcesByFrequency } from '~/db/services/sources/getSource';
+import { promised } from '~/lib/utils';
+
+import OperationsFormTrigger from '../operations-form/operations-form-trigger';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Strona główna | Billans' }];

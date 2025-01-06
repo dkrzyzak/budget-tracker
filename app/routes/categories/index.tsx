@@ -1,9 +1,11 @@
 import { type MetaFunction } from 'react-router';
-import { getCategoriesByUsage } from '~/db/services/categories';
-import { CategoriesList } from './categories-list/categories-list';
+
 import { createCategoryAction } from '~/actions/categories/create.server';
-import { updateCategoryAction } from '~/actions/categories/update.server';
 import { deleteCategoryAction } from '~/actions/categories/delete.server';
+import { updateCategoryAction } from '~/actions/categories/update.server';
+import { getCategoriesByUsage } from '~/db/services/categories';
+
+import { CategoriesList } from './categories-list/categories-list';
 
 export const meta: MetaFunction = () => {
     return [{ title: 'Kategorie | Billans' }];

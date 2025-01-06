@@ -1,7 +1,8 @@
-import type { SourceDto } from '~/db/models';
-import { Button } from '~/components/ui/button';
 import { Pencil, Trash } from 'lucide-react';
+
+import { Button } from '~/components/ui/button';
 import { useItemsDeletion, useItemsForm } from '~/context/items-manager';
+import type { SourceDto } from '~/db/models';
 
 interface SourceItemProps {
     source: SourceDto;

@@ -1,5 +1,6 @@
 import { CircleDollarSign, HandCoins } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
+
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import type { OperationFormData, OperationType } from '~/db/models';
 

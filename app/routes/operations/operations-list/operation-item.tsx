@@ -1,5 +1,5 @@
-import { formatDefault } from '~/lib/utils/date';
 import type { OperationExtended } from '~/db/services/operations';
+import { formatDefault } from '~/lib/utils/date';
 
 interface OperationItemProps {
     operation: OperationExtended;

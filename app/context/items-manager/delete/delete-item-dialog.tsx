@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -9,7 +10,6 @@ import {
     AlertDialogTitle,
 } from '~/components/ui/alert-dialog';
 import { useItemsDeletion } from './items-deletion-context';
-import type { ReactNode } from 'react';
 
 export type OnDelete<T> = (
     selectedItem: T,

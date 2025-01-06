@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
-import { type OperationFormData } from '~/db/models';
-import { NEW_OPTION_ID } from '~/lib/globals';
 import { useFormContext } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
-import type { LoaderData } from '~/routes/dashboard';
+
 import { ComboSelect } from '~/components/form/combo-select';
 import FormField from '~/components/form/form-field';
+import { type OperationFormData } from '~/db/models';
+import { NEW_OPTION_ID } from '~/lib/globals';
+import type { LoaderData } from '~/routes/dashboard';
 
 export function OperationCategory() {
     const { categories: loadedCategories } = useLoaderData<LoaderData>();

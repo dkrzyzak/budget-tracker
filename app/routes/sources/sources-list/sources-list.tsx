@@ -1,9 +1,7 @@
-import { useLoaderData } from 'react-router';
-import type { LoaderData } from '../index';
-import SourceItem from './source-item';
 import { useCallback } from 'react';
-import type { SourceDto } from '~/db/models';
-import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
+import { useLoaderData } from 'react-router';
+import { toast } from 'sonner';
+
 import {
     DeleteItemDialog,
     ItemFormModal,
@@ -12,9 +10,13 @@ import {
     type OnDelete,
     type RenderDeleteMessage,
 } from '~/context/items-manager';
-import { toast } from 'sonner';
-import SourceForm from '../source-form/source-form';
+import type { SourceDto } from '~/db/models';
+import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
+
+import type { LoaderData } from '../index';
+import SourceItem from './source-item';
 import { emptySourceData } from '../source-form/constants';
+import SourceForm from '../source-form/source-form';
 
 export function SourcesList() {
     const { sources } = useLoaderData<LoaderData>();

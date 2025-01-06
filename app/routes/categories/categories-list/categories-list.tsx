@@ -1,10 +1,7 @@
-import { useLoaderData } from 'react-router';
 import { useCallback } from 'react';
-import type { LoaderData } from '../index';
-import CategoryItem from './category-item';
-import type { CategoryDto } from '~/db/models';
-import { emptyCategoryData } from '../category-form/constants';
-import CategoryForm from '../category-form/category-form';
+import { useLoaderData } from 'react-router';
+import { toast } from 'sonner';
+
 import {
     ItemsManager,
     DeleteItemDialog,
@@ -13,8 +10,13 @@ import {
     type OnDelete,
     type RenderDeleteMessage,
 } from '~/context/items-manager';
+import type { CategoryDto } from '~/db/models';
 import { useAwaitedFetcher } from '~/hooks/use-awaited-fetcher';
-import { toast } from 'sonner';
+
+import type { LoaderData } from '../index';
+import CategoryItem from './category-item';
+import CategoryForm from '../category-form/category-form';
+import { emptyCategoryData } from '../category-form/constants';
 
 export function CategoriesList() {
     const { categories } = useLoaderData<LoaderData>();

@@ -73,12 +73,19 @@ module.exports = {
                         destructuredArrayIgnorePattern: '^_',
                     },
                 ],
-                // 'no-restricted-syntax': [
-                //     'error',
+
+                // 'import/order': [
+                //     'warn',
                 //     {
-                //         selector: 'NewExpression[callee.name="Response"]',
-                //         message:
-                //             'Direct use of the Response class is forbidden. Use the createResponse function instead.',
+                //         groups: [
+                //             ['builtin', 'external'],
+                //             'internal',
+                //             ['parent', 'sibling'],
+                //         ],
+                //         'newlines-between': 'always',
+                //         alphabetize: {
+                //             order: 'asc',
+                //         },
                 //     },
                 // ],
             },

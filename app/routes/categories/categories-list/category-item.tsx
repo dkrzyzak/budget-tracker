@@ -1,8 +1,9 @@
-import type { CategoryDto } from '~/db/models';
+import { Pencil, Trash } from 'lucide-react';
+
 import SvgIcon from '~/components/icon';
 import { Button } from '~/components/ui/button';
-import { Pencil, Trash } from 'lucide-react';
 import { useItemsDeletion, useItemsForm } from '~/context/items-manager';
+import type { CategoryDto } from '~/db/models';
 
 interface CategoryItemProps {
     category: CategoryDto;

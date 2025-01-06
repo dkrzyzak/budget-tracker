@@ -1,7 +1,8 @@
 import { useFormContext } from 'react-hook-form';
+
 import FormField from '~/components/form/form-field';
-import { TextArea } from '~/components/ui/textarea';
 import SvgIcon from '~/components/icon';
+import { TextArea } from '~/components/ui/textarea';
 import type { CategoryFormData } from '~/db/models';
 
 function CategoryIconInput() {

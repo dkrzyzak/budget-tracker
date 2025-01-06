@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, type NavLinkProps } from 'react-router';
+
 import { Button } from '~/components/ui/button';
 import {
     Sheet,
@@ -9,8 +10,9 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '~/components/ui/sheet';
-import { menuLinks } from './constants';
 import { cn } from '~/lib/utils';
+
+import { menuLinks } from './constants';
 
 type MobileMenuItemProps = NavLinkProps & {
     setMenuOpen: (open: boolean) => void;

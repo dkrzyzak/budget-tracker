@@ -1,6 +1,6 @@
 import type { FieldError } from 'react-hook-form';
-import { Input, type InputProps } from '../ui/input';
 import FormField from './form-field';
+import { Input, type InputProps } from '../ui/input';
 
 type FormInputProps = InputProps & {
     id?: string;

@@ -1,5 +1,5 @@
-import { AddItemOutlet } from '../create-update/add-item-outlet';
 import { useItemsList } from './items-list-context';
+import { AddItemOutlet } from '../create-update/add-item-outlet';
 
 interface ListOutletProps<T> {
     className?: string;
