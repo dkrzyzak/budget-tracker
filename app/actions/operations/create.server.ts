@@ -1,7 +1,7 @@
 import { operationFormParser } from '~/db/models';
-import { addCategory } from '~/db/services/categories';
+import { addCategoryByName } from '~/db/services/categories';
 import { addOperation } from '~/db/services/operations';
-import { addSource } from '~/db/services/sources';
+import { addSourceByName } from '~/db/services/sources';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { promised } from '~/lib/utils/promised';
 
@@ -20,12 +20,7 @@ export const createOperationAction: ActionFunction = async ({ request }) => {
 
     // if category is new, insert it into the db
     if (data.categoryId === NEW_OPTION_ID) {
-        const [newCategory, error] = await promised(addCategory, {
-            name: data.categoryName,
-            id: null,
-            color: null,
-            icon: null,
-        });
+        const [newCategory, error] = await promised(addCategoryByName, data.categoryName);
 
         if (error) {
             return {
@@ -42,11 +37,7 @@ export const createOperationAction: ActionFunction = async ({ request }) => {
 
     // if category is new, insert it into the db
     if (data.sourceId === NEW_OPTION_ID) {
-        const [newSource, error] = await promised(addSource, {
-            id: null,
-            name: data.sourceName,
-            image: null,
-        });
+        const [newSource, error] = await promised(addSourceByName, data.sourceName);
 
         if (error) {
             return {

@@ -1,7 +1,7 @@
 import { operationFormSchema } from '~/db/models';
-import { addCategory } from '~/db/services/categories';
+import { addCategoryByName } from '~/db/services/categories';
 import { updateOperation } from '~/db/services/operations';
-import { addSource } from '~/db/services/sources';
+import { addSourceByName } from '~/db/services/sources';
 import { NEW_OPTION_ID } from '~/lib/globals';
 import { promised } from '~/lib/utils/promised';
 
@@ -14,19 +14,16 @@ export const updateOperationAction: ActionFunction = async ({ request }) => {
         return { success: false, message: 'Przekazano złe dane' };
     }
 
-    const { data: formData } = parsedForm;
+    const { data } = parsedForm;
 
-    let categoryId = formData.categoryId;
+    let categoryId = data.categoryId;
 
     // if category is new, insert it into the db
-    if (formData.categoryId === NEW_OPTION_ID) {
-        // TODO: separate function to add category only with name
-        const [newCategory, error] = await promised(addCategory, {
-            name: formData.categoryName,
-            id: null,
-            color: null,
-            icon: null,
-        });
+    if (data.categoryId === NEW_OPTION_ID) {
+        const [newCategory, error] = await promised(
+            addCategoryByName,
+            data.categoryName
+        );
 
         if (error) {
             return {
@@ -39,16 +36,11 @@ export const updateOperationAction: ActionFunction = async ({ request }) => {
         categoryId = newCategory.id;
     }
 
-    let sourceId = formData.sourceId;
+    let sourceId = data.sourceId;
 
     // if category is new, insert it into the db
-    if (formData.sourceId === NEW_OPTION_ID) {
-        // TODO: separate function to add source only with name
-        const [newSource, error] = await promised(addSource, {
-            id: null,
-            name: formData.sourceName,
-            image: null,
-        });
+    if (data.sourceId === NEW_OPTION_ID) {
+        const [newSource, error] = await promised(addSourceByName, data.sourceName);
 
         if (error) {
             return {
@@ -62,7 +54,7 @@ export const updateOperationAction: ActionFunction = async ({ request }) => {
     }
 
     const [_changedRows, error] = await promised(updateOperation, {
-        ...formData,
+        ...data,
         categoryId,
         sourceId,
     });

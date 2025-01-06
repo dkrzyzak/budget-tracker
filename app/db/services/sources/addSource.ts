@@ -9,3 +9,14 @@ export async function addSource(source: SourceFormData) {
 
     return res[0];
 }
+
+export async function addSourceByName(sourceName: string) {
+    const res = await db
+        .insert({
+            name: sourceName,
+        })
+        .into<SourceDto>('sources')
+        .returning('id');
+
+    return res[0];
+}
